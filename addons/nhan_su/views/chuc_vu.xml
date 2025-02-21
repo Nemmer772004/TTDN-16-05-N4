@@ -1,0 +1,51 @@
+<odoo>
+    <record id="view_chuc_vu_form" model="ir.ui.view">
+        <field name="name">chuc.vu.form</field>
+        <field name="model">chuc_vu</field>
+        <field name="arch" type="xml">
+            <form string="Chức Vụ">
+                <sheet>
+                    <group>
+                        <field name="ma_chuc_vu"/>
+                        <field name="ten_chuc_vu"/>
+                        <field name="mo_ta"/>
+                        <field name="phong_ban_id"/>
+                        <field name="nhan_vien_ids" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_chuc_vu_tree" model="ir.ui.view">
+        <field name="name">chuc.vu.tree</field>
+        <field name="model">chuc_vu</field>
+        <field name="arch" type="xml">
+            <tree string="Chức Vụ">
+                <field name="ma_chuc_vu"/>
+                <field name="ten_chuc_vu"/>
+                <field name="phong_ban_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="chuc_vu_search" model="ir.ui.view">
+        <field name="model">chuc_vu</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="ma_chuc_vu"/>
+                <field name="ten_chuc_vu"/>
+                <field name="phong_ban_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_chuc_vu" model="ir.actions.act_window">
+        <field name="name">Chức Vụ</field>
+        <field name="res_model">chuc_vu</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_chuc_vu" name="Chức Vụ" parent="base.menu_custom" action="action_chuc_vu"/>
+</odoo>

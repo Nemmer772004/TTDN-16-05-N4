@@ -14,6 +14,11 @@
                             <field name="que_quan"/>
                             <field name="email"/>
                         </group>
+                        <notebook>
+                            <page string="Danh sách lịch sử công tác">
+                                <field name="lich_su_cong_tac_ids"></field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
