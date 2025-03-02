@@ -17,6 +17,12 @@
             sequence="1"
             action="action_dat_phong"
         />
+        <menuitem name="Lịch sử mượn trả" 
+            id="menu_lich_su_muon_tra" 
+            parent="menu_root" 
+            sequence="1"
+            action="action_lich_su_muon_tra"
+        />
         
     </data>
 </odoo>

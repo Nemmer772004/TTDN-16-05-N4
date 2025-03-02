@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_lich_su_muon_tra_form" model="ir.ui.view">
+            <field name="name">lich_su_muon_tra</field>
+            <field name="model">lich_su_muon_tra</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Lịch sử mượn trả</div>
+                        <group col="4" string="Thông tin chung">
+                            
+                            <field name="phong_id"/>
+                            <field name="ten_nguoi_dat"/>
+                            <field name="thoi_gian_muon_du_kien"/>
+                            <field name="thoi_gian_muon_thuc_te"/>
+                            <field name="thoi_gian_tra_du_kien"/>
+                            <field name="thoi_gian_tra_thuc_te"/>
+                            <field name="trang_thai"/>
+                            <field name="ngay_thay_doi"/>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_lich_su_muon_tra_tree" model="ir.ui.view">
+            <field name="name">lich_su_muon_tra</field>
+            <field name="model">lich_su_muon_tra</field>
+            <field name="arch" type="xml">
+                <tree>
+                    
+                    <field name="phong_id"/>
+                    <field name="ten_nguoi_dat"/>
+                    <field name="thoi_gian_muon_du_kien"/>
+                    <field name="thoi_gian_muon_thuc_te"/>
+                    <field name="thoi_gian_tra_du_kien"/>
+                    <field name="thoi_gian_tra_thuc_te"/>
+                    <field name="trang_thai"/>
+                    <field name="ngay_thay_doi"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="lich_su_muon_tra_search">
+            <field name="model">lich_su_muon_tra</field>
+            <field name="arch" type="xml">
+                <search>
+                    
+                    <field name="phong_id"/>
+                    <field name="ten_nguoi_dat"/>
+                    <field name="thoi_gian_muon_du_kien"/>
+                    <field name="thoi_gian_muon_thuc_te"/>
+                    <field name="thoi_gian_tra_du_kien"/>
+                    <field name="thoi_gian_tra_thuc_te"/>
+                    <field name="trang_thai"/>
+                    <field name="ngay_thay_doi"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_lich_su_muon_tra" model="ir.actions.act_window">
+            <field name="name">Lịch sử mượn trả</field>
+            <field name="res_model">lich_su_muon_tra</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "lich_su_muon_tra_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

@@ -18,7 +18,7 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
-
+    'license': 'LGPL-3',
     # any module necessary for this one to work correctly
     'depends': ['base'],
 
@@ -27,6 +27,7 @@
         'security/ir.model.access.csv',
         'views/quan_ly_phong_hop.xml',
         'views/dat_phong.xml',
+        'views/lich_su_muon_tra.xml',
         'views/menu.xml',
     ],
     # only loaded in demonstration mode

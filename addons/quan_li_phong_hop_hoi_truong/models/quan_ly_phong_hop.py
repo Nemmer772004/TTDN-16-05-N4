@@ -6,14 +6,14 @@ class QuanLyPhongHop(models.Model):
 
     name = fields.Char(string='Tên phòng họp', required=True)
     loai_phong = fields.Selection([
-        ('Phòng họp', 'Phòng họp'),
-        ('Hội trường', 'Hội trường'),
-    ], string='Loại phòng', required=True, default='Phòng họp')
+        ('Phòng_họp', 'Phòng họp'),
+        ('Hội_trường', 'Hội trường'),
+    ], string='Loại phòng', required=True, default='Phòng_họp')
     suc_chua = fields.Integer(string='Sức chứa')
     trang_thai = fields.Selection([
-        ('Có sẵn', 'Có sẵn'),
-        ('Đã mượn', 'Đã mượn'),
-    ], string='Trạng thái', required=True, default='Có sẵn')
+        ('Có_sẵn', 'Có sẵn'),
+        ('Đã_mượn', 'Đã mượn'),
+    ], string='Trạng thái', required=True, default='Có_sẵn')
 
     
     
