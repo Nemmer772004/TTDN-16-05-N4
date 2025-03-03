@@ -5,7 +5,7 @@
             <field name="name">lich_su_muon_tra</field>
             <field name="model">lich_su_muon_tra</field>
             <field name="arch" type="xml">
-                <form>
+                <form create="false">
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Lịch sử mượn trả</div>
                         <group col="4" string="Thông tin chung">
@@ -29,7 +29,7 @@
             <field name="name">lich_su_muon_tra</field>
             <field name="model">lich_su_muon_tra</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="false">
                     
                     <field name="phong_id"/>
                     <field name="ten_nguoi_dat"/>

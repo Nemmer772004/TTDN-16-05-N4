@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="view_dat_phong_form" model="ir.ui.view">
-            <field name="name">dat_phong</field>
+            <field name="name">dat_phong_form</field>
             <field name="model">dat_phong</field>
             <field name="arch" type="xml">
                 <form>
@@ -38,7 +38,7 @@
         </record>
 
         <record id="view_dat_phong_tree" model="ir.ui.view">
-            <field name="name">dat_phong</field>
+            <field name="name">dat_phong_tree</field>
             <field name="model">dat_phong</field>
             <field name="arch" type="xml">
                 <tree>
@@ -78,9 +78,7 @@
             <field name="name">Danh sách người mượn phòng</field>
             <field name="res_model">dat_phong</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref = "dat_phong_search"/>
+            <field name="search_view_id" ref="dat_phong_search"/>
         </record>
     </data>
 </odoo>
-        
-    

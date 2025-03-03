@@ -9,17 +9,17 @@ class DatPhong(models.Model):
     email_nguoi_dat = fields.Char(string="Email")
     so_dien_thoai_nguoi_dat = fields.Char(string="Số điện thoại")
     id_nhan_vien = fields.Char(string="Mã nhân viên")
-    thoi_gian_muon_du_kien = fields.Datetime(string="Thời gian mượn dự kiến" )
-    thoi_gian_muon_thuc_te = fields.Datetime(string="Thời gian mượn thực tế" )
+    thoi_gian_muon_du_kien = fields.Datetime(string="Thời gian mượn dự kiến")
+    thoi_gian_muon_thuc_te = fields.Datetime(string="Thời gian mượn thực tế")
     thoi_gian_tra_du_kien = fields.Datetime(string="Thời gian trả dự kiến")
-    thoi_gian_tra_thuc_te = fields.Datetime(string="Thời gian trả thực tế" )
+    thoi_gian_tra_thuc_te = fields.Datetime(string="Thời gian trả thực tế")
     trang_thai = fields.Selection([
-        ("chờ_duyệt", "chờ duyệt"),
-        ("đã_duyệt", "đã duyệt"),
-        ("đã_hủy", "đã hủy"),
+        ("chờ_duyệt", "Chờ duyệt"),
+        ("đã_duyệt", "Đã duyệt"),
+        ("đã_hủy", "Đã hủy"),
         ("đã_trả", "Đã trả")
     ], string="Trạng thái", default="chờ_duyệt")
-    
+
     lich_su_ids = fields.One2many("lich_su_muon_tra", "dat_phong_id", string="Lịch sử mượn trả")
 
     @api.model
@@ -47,3 +47,8 @@ class DatPhong(models.Model):
                 "trang_thai": record.trang_thai
             })
         return res
+    @api.onchange("trang_thai")
+    def _onchange_trang_thai(self):
+        for record in self:
+            if record.phong_id:
+                record.phong_id._compute_trang_thai()
