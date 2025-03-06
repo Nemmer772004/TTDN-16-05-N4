@@ -17,10 +17,7 @@
 
                             <group col="2">
                                 <separator string="Thông tin người mượn phòng" colspan="2"/>
-                                <field name="ten_nguoi_dat"/>
-                                <field name="email_nguoi_dat"/>
-                                <field name="so_dien_thoai_nguoi_dat"/>
-                                <field name="id_nhan_vien"/>
+                                <field name="nguoi_muon_id"/>
                             </group>
                         </group>
 
@@ -43,7 +40,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="phong_id"/>
-                    <field name="ten_nguoi_dat"/>
+                    <field name="nguoi_muon_id"/>
                     <field name="thoi_gian_muon_du_kien"/>
                     <field name="thoi_gian_muon_thuc_te"/>
                     <field name="thoi_gian_tra_du_kien"/>
@@ -59,9 +56,7 @@
                 <search>
                     <field name="phong_id"/>
                     <group>
-                        <field name="ten_nguoi_dat"/>
-                        <field name="email_nguoi_dat"/>
-                        <field name="so_dien_thoai_nguoi_dat"/>
+                        <field name="nguoi_muon_id"/>
                     </group>
                     <group>
                         <field name="thoi_gian_muon_du_kien"/>

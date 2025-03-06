@@ -17,7 +17,7 @@
             sequence="1"
             action="action_dat_phong"
         />
-        <menuitem name="Lịch sử mượn trả" 
+        <menuitem name="Lịch sử sử dụng" 
             id="menu_lich_su_muon_tra" 
             parent="menu_root" 
             sequence="1"

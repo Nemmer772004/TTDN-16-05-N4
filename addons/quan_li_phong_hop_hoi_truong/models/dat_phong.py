@@ -5,10 +5,7 @@ class DatPhong(models.Model):
     _description = "Đăng ký mượn phòng"
 
     phong_id = fields.Many2one("quan_ly_phong_hop", string="Phòng mượn", required=True)
-    ten_nguoi_dat = fields.Char(string="Tên người mượn", required=True)
-    email_nguoi_dat = fields.Char(string="Email")
-    so_dien_thoai_nguoi_dat = fields.Char(string="Số điện thoại")
-    id_nhan_vien = fields.Char(string="Mã nhân viên")
+    nguoi_muon_id = fields.Many2one("nhan_vien", string="Người mượn", required=True)
     thoi_gian_muon_du_kien = fields.Datetime(string="Thời gian mượn dự kiến")
     thoi_gian_muon_thuc_te = fields.Datetime(string="Thời gian mượn thực tế")
     thoi_gian_tra_du_kien = fields.Datetime(string="Thời gian trả dự kiến")

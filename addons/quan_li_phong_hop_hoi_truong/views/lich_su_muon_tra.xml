@@ -7,11 +7,11 @@
             <field name="arch" type="xml">
                 <form create="false">
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Lịch sử mượn trả</div>
+                        <div class="oe_read_only" style="font-size:25px">Lịch sử sử dụng</div>
                         <group col="4" string="Thông tin chung">
                             
                             <field name="phong_id"/>
-                            <field name="ten_nguoi_dat"/>
+                            <field name="nguoi_muon_id"/>
                             <field name="thoi_gian_muon_du_kien"/>
                             <field name="thoi_gian_muon_thuc_te"/>
                             <field name="thoi_gian_tra_du_kien"/>
@@ -32,7 +32,7 @@
                 <tree create="false">
                     
                     <field name="phong_id"/>
-                    <field name="ten_nguoi_dat"/>
+                    <field name="nguoi_muon_id"/>
                     <field name="thoi_gian_muon_du_kien"/>
                     <field name="thoi_gian_muon_thuc_te"/>
                     <field name="thoi_gian_tra_du_kien"/>
@@ -49,7 +49,7 @@
                 <search>
                     
                     <field name="phong_id"/>
-                    <field name="ten_nguoi_dat"/>
+                    <field name="nguoi_muon_id"/>
                     <field name="thoi_gian_muon_du_kien"/>
                     <field name="thoi_gian_muon_thuc_te"/>
                     <field name="thoi_gian_tra_du_kien"/>
@@ -61,7 +61,7 @@
         </record>
 
         <record id="action_lich_su_muon_tra" model="ir.actions.act_window">
-            <field name="name">Lịch sử mượn trả</field>
+            <field name="name">Lịch sử sử dụng</field>
             <field name="res_model">lich_su_muon_tra</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref = "lich_su_muon_tra_search"/>
