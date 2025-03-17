@@ -1,31 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Form View Quản lý phòng họp -->
         <record id="view_quan_ly_phong_hop_form" model="ir.ui.view">
-            <field name="name">quan_ly_phong_hop</field>
+            <field name="name">quan_ly_phong_hop_form</field>
             <field name="model">quan_ly_phong_hop</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Danh sách phòng họp</div>
-                        <group col="4" string="Thông tin chung">
-                            <field name="name" string="Tên phòng họp"/>
+                        <group col="2">
+                            <field name="name"/>
                             <field name="loai_phong"/>
                             <field name="suc_chua"/>
                             <field name="trang_thai"/>
                         </group>
-                        
+
+                        <notebook>
+                            <page string="Lịch đặt phòng">
+                                <field name="lich_dat_phong_ids">
+                                    <tree>
+                                        <field name="nguoi_muon_id"/>
+                                        <field name="thoi_gian_muon_du_kien"/>
+                                        <field name="thoi_gian_tra_du_kien"/>
+                                        <field name="trang_thai"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
 
+        <!-- Tree View Quản lý phòng họp -->
         <record id="view_quan_ly_phong_hop_tree" model="ir.ui.view">
-            <field name="name">quan_ly_phong_hop</field>
+            <field name="name">quan_ly_phong_hop_tree</field>
             <field name="model">quan_ly_phong_hop</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name" string="Tên phòng họp"/>
+                    <field name="name"/>
                     <field name="loai_phong"/>
                     <field name="suc_chua"/>
                     <field name="trang_thai"/>
@@ -33,25 +45,14 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="quan_ly_phong_hop_search">
-            <field name="model">quan_ly_phong_hop</field>
-            <field name="arch" type="xml">
-                <search>
-                    <field name="name" string="Tên phòng họp"/>
-                    <field name="loai_phong"/>
-                    <field name="suc_chua"/>
-                    <field name="trang_thai"/>
-                </search>
-            </field>
-        </record>
-
+        <!-- Action -->
         <record id="action_quan_ly_phong_hop" model="ir.actions.act_window">
-            <field name="name">Danh sách phòng họp, hội trường</field>
+            <field name="name">Danh sách phòng họp</field>
             <field name="res_model">quan_ly_phong_hop</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref = "quan_ly_phong_hop_search"/>
         </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_quan_ly_phong_hop" name="Quản lý phòng họp" action="action_quan_ly_phong_hop"/>
     </data>
 </odoo>
-        
-    

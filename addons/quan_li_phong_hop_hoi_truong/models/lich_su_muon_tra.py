@@ -15,6 +15,7 @@ class LichSuMuonTra(models.Model):
     trang_thai = fields.Selection([
         ("chờ_duyệt", "Chờ duyệt"),
         ("đã_duyệt", "Đã duyệt"),
+        ("đang_sử_dụng", "Đang sử dụng"),
         ("đã_hủy", "Đã hủy"),
         ("đã_trả", "Đã trả")
     ], string="Trạng thái")
