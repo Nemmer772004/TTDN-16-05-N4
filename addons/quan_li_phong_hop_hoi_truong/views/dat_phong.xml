@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <!-- Form View - Đăng ký mượn phòng -->
@@ -6,45 +5,66 @@
             <field name="name">dat_phong_form</field>
             <field name="model">dat_phong</field>
             <field name="arch" type="xml">
-                <form>
+                <form string="📋 Chi tiết Đăng Ký Mượn Phòng">
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Thông tin mượn phòng</div>
+                        <!-- <div class="oe_title">
+                            <h1 style="color:#007bff;">🏢 Mượn phòng: <field name="phong_id"/></h1>
+                        </div> -->
+
                         <group col="2">
-                            <group col="2">
-                                <separator string="Thông tin chung" colspan="2"/>
+                            <group>
+                                <separator string="🏷 Thông tin chung" colspan="2"/>
                                 <field name="phong_id"/>
-                            </group>
-
-                            <group col="2">
-                                <separator string="Thông tin người mượn phòng" colspan="2"/>
                                 <field name="nguoi_muon_id"/>
+                                <!-- <field name="trang_thai" string="📌 Trạng thái"/> -->
                             </group>
                         </group>
 
                         <group col="2">
-                            <separator string="Thời gian mượn phòng" colspan="2"/>
-                            <field name="thoi_gian_muon_du_kien"/>
-                            <field name="thoi_gian_tra_du_kien"/>
+                            <separator string="📅 Thời gian Mượn Trả" colspan="2"/>
+                            <field name="thoi_gian_muon_du_kien" string="⏳ Mượn dự kiến"/>
+                            <!-- <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/> -->
+                            <field name="thoi_gian_tra_du_kien" string="📆 Trả dự kiến"/>
+                            <!-- <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/> -->
                         </group>
-                        
+                        <notebook>
+                            <!-- Thêm tab hiển thị chi tiết sử dụng -->
+                            <page string="📊 Chi Tiết Sử Dụng">
+                                <field name="chi_tiet_su_dung_ids">
+                                    <tree>
+                                        <field name="nguoi_muon_id" string="👤 Người mượn"/>
+                                        <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/>
+                                        <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/>
+                                        <field name="trang_thai" string="📌 Trạng thái"
+                                               decoration-muted="trang_thai=='đã_trả'"
+                                               decoration-danger="trang_thai=='đang_sử_dụng'"
+                                               decoration-success="trang_thai=='đã_duyệt'"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <!-- Tree View - Danh sách đăng ký mượn phòng -->
+        <!-- Tree View - Danh sách Đăng ký mượn phòng -->
         <record id="view_dat_phong_tree" model="ir.ui.view">
             <field name="name">dat_phong_tree</field>
             <field name="model">dat_phong</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree string="📋 Danh sách Đăng Ký Mượn Phòng">
                     <field name="phong_id" string="🏢 Phòng họp"/>
                     <field name="nguoi_muon_id" string="👤 Người mượn"/>
                     <field name="thoi_gian_muon_du_kien" string="⏳ Mượn dự kiến"/>
-                    <field name="thoi_gian_tra_du_kien" string="🔄 Trả dự kiến"/>
-
-                    <!-- Cột trạng thái hiển thị biểu tượng trực tiếp -->
-                    <field name="trang_thai" string="📌 Trạng thái"/>
+                    <!-- <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/> -->
+                    <field name="thoi_gian_tra_du_kien" string="📆 Trả dự kiến"/>
+                    <!-- <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/> -->
+                    <field name="trang_thai" string="📌 Trạng thái"
+                           decoration-muted="trang_thai=='đã_hủy'"
+                           decoration-danger="trang_thai=='đang_sử_dụng'"
+                           decoration-info="trang_thai=='đã_duyệt'"
+                           decoration-success="trang_thai=='chờ_duyệt'"/>
 
                     <!-- Nút hành động -->
                     <button name="action_approve" string="✅ Duyệt" type="object" class="btn-primary"
@@ -65,19 +85,21 @@
         <record model="ir.ui.view" id="dat_phong_search">
             <field name="model">dat_phong</field>
             <field name="arch" type="xml">
-                <search>
-                    <field name="phong_id" string="Phòng họp"/>
-                    <field name="nguoi_muon_id" string="Người mượn"/>
-                    <field name="thoi_gian_muon_du_kien" string="Mượn dự kiến"/>
-                    <field name="thoi_gian_tra_du_kien" string="Trả dự kiến"/>
-                    <field name="trang_thai" string="Trạng thái"/>
+                <search string="🔍 Tìm kiếm Đăng Ký Mượn Phòng">
+                    <field name="phong_id" string="🏢 Phòng họp"/>
+                    <field name="nguoi_muon_id" string="👤 Người mượn"/>
+                    <field name="thoi_gian_muon_du_kien" string="⏳ Mượn dự kiến"/>
+                    <!-- <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/> -->
+                    <field name="thoi_gian_tra_du_kien" string="📆 Trả dự kiến"/>
+                    <!-- <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/> -->
+                    <field name="trang_thai" string="📌 Trạng thái"/>
                 </search>
             </field>
         </record>
 
         <!-- Action - Danh sách tất cả đăng ký -->
         <record id="action_dat_phong" model="ir.actions.act_window">
-            <field name="name">Danh sách Đăng ký mượn phòng</field>
+            <field name="name">📋 Danh sách Đăng Ký Mượn Phòng</field>
             <field name="res_model">dat_phong</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="dat_phong_search"/>
@@ -85,7 +107,7 @@
 
         <!-- Action - Danh sách Chờ duyệt -->
         <record id="action_dat_phong_cho_duyet" model="ir.actions.act_window">
-            <field name="name">Danh sách Chờ duyệt</field>
+            <field name="name">📋 Danh sách Chờ Duyệt</field>
             <field name="res_model">dat_phong</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="dat_phong_search"/>
@@ -94,23 +116,25 @@
 
         <!-- Action - Danh sách Đã duyệt -->
         <record id="action_dat_phong_da_duyet" model="ir.actions.act_window">
-            <field name="name">Danh sách Đã duyệt</field>
+            <field name="name">📋 Danh sách Đã Duyệt</field>
             <field name="res_model">dat_phong</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="dat_phong_search"/>
             <field name="domain">[("trang_thai", "=", "đã_duyệt")]</field>
         </record>
+
         <!-- Action - Danh sách Đang sử dụng -->
         <record id="action_dat_phong_dang_su_dung" model="ir.actions.act_window">
-            <field name="name">Danh sách phòng đang sử dụng</field>
+            <field name="name">📋 Danh sách Phòng Đang Sử Dụng</field>
             <field name="res_model">dat_phong</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="dat_phong_search"/>
             <field name="domain">[("trang_thai", "=", "đang_sử_dụng")]</field>
         </record>
+
         <!-- Action - Danh sách Đã hủy -->
         <record id="action_dat_phong_da_huy" model="ir.actions.act_window">
-            <field name="name">Danh sách Đã hủy</field>
+            <field name="name">📋 Danh sách Đã Hủy</field>
             <field name="res_model">dat_phong</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="dat_phong_search"/>

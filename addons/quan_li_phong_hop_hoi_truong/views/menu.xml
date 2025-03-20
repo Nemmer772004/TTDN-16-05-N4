@@ -35,7 +35,12 @@
                   parent="menu_dat_phong"
                   action="action_dat_phong_da_huy"/>
 
-        <menuitem name="Lịch sử sử dụng" 
+        <menuitem name="Lịch sử thay đổi" 
+                  id="menu_lich_su_thay_doi" 
+                  parent="menu_root" 
+                  sequence="3"
+                  action="action_lich_su_thay_doi"/>
+        <menuitem name="Lịch sử mượn trả" 
                   id="menu_lich_su_muon_tra" 
                   parent="menu_root" 
                   sequence="3"

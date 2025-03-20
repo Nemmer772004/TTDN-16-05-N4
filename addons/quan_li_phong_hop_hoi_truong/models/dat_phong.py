@@ -20,8 +20,8 @@ class DatPhong(models.Model):
         ("đã_trả", "Đã trả")
     ], string="Trạng thái", default="chờ_duyệt")
 
-    lich_su_ids = fields.One2many("lich_su_muon_tra", "dat_phong_id", string="Lịch sử mượn trả")
-
+    lich_su_ids = fields.One2many("lich_su_thay_doi", "dat_phong_id", string="Lịch sử mượn trả")
+    chi_tiet_su_dung_ids = fields.One2many("dat_phong", "phong_id", string="Chi Tiết Sử Dụng", domain=[("trang_thai", "in", ["đang_sử_dụng", "đã_trả"])])
     def action_approve(self):
         """ Xác nhận duyệt phòng và tự động hủy các yêu cầu bị trùng thời gian (cùng phòng hoặc khác phòng) """
         for record in self:
@@ -80,11 +80,24 @@ class DatPhong(models.Model):
         for record in self:
             if record.trang_thai != "đã_duyệt":
                 raise exceptions.UserError("Chỉ có thể bắt đầu sử dụng phòng có trạng thái 'Đã duyệt'.")
+
+            # Kiểm tra nếu đã có người đang sử dụng phòng này
+            existing_using = self.env["dat_phong"].search([
+                ("phong_id", "=", record.phong_id.id),
+                ("trang_thai", "=", "đang_sử_dụng"),
+                ("id", "!=", record.id)
+            ])
+
+            if existing_using:
+                raise exceptions.UserError(f"Phòng {record.phong_id.name} hiện đang được sử dụng. Vui lòng chờ đến khi phòng trống.")
+
+            # Nếu không có ai đang sử dụng, cho phép bắt đầu
             record.write({
                 "trang_thai": "đang_sử_dụng",
                 "thoi_gian_muon_thuc_te": datetime.now()
             })
             self._log_history(record)
+
 
     def action_return_room(self):
         """ Trả phòng - Cập nhật thời gian trả thực tế và đảm bảo thời gian mượn thực tế có giá trị """
@@ -102,7 +115,7 @@ class DatPhong(models.Model):
     @api.model
     def _log_history(self, record):
         """ Ghi vào lịch sử mượn trả """
-        self.env["lich_su_muon_tra"].create({
+        self.env["lich_su_thay_doi"].create({
             "dat_phong_id": record.id,
             "nguoi_muon_id": record.nguoi_muon_id.id,
             "thoi_gian_muon_du_kien": record.thoi_gian_muon_du_kien,

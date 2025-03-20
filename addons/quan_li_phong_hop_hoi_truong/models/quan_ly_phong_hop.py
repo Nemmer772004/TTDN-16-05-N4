@@ -18,7 +18,20 @@ class QuanLyPhongHop(models.Model):
     ], string="Trạng thái", compute="_compute_trang_thai", store=True)
 
     dat_phong_ids = fields.One2many("dat_phong", "phong_id", string="Lịch sử mượn phòng")
-    lich_dat_phong_ids = fields.One2many("dat_phong", "phong_id", string="Lịch đặt phòng", domain=[("trang_thai", "!=", "đã_trả")])
+
+    # Chỉ hiển thị các trạng thái "Đã duyệt" và "Đang sử dụng"
+    lich_dat_phong_ids = fields.One2many(
+        "dat_phong", "phong_id",
+        string="Lịch đặt phòng",
+        domain=[("trang_thai", "in", ["đã_duyệt", "đang_sử_dụng"])]
+    )
+
+    # Lịch sử mượn trả (Chỉ hiển thị các trạng thái "Đã trả")
+    lich_su_thay_doi_ids = fields.One2many(
+        "dat_phong", "phong_id",
+        string="Lịch sử mượn trả",
+        domain=[("trang_thai", "=", "đã_trả")]
+    )
 
     @api.depends("dat_phong_ids.trang_thai")
     def _compute_trang_thai(self):

@@ -1,72 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Form View - Lịch sử Mượn Trả -->
         <record id="view_lich_su_muon_tra_form" model="ir.ui.view">
-            <field name="name">lich_su_muon_tra</field>
+            <field name="name">lich_su_muon_tra_form</field>
             <field name="model">lich_su_muon_tra</field>
             <field name="arch" type="xml">
-                <form create="false">
+                <form string="📜 Lịch Sử Mượn Trả">
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Lịch sử sử dụng</div>
-                        <group col="4" string="Thông tin chung">
-                            
-                            <field name="phong_id"/>
-                            <field name="nguoi_muon_id"/>
-                            <field name="thoi_gian_muon_du_kien"/>
-                            <field name="thoi_gian_muon_thuc_te"/>
-                            <field name="thoi_gian_tra_du_kien"/>
-                            <field name="thoi_gian_tra_thuc_te"/>
-                            <field name="trang_thai"/>
-                            <field name="ngay_thay_doi"/>
+                        <group col="2">
+                            <group>
+                                <separator string="🏷 Thông tin chung" colspan="2"/>
+                                <field name="ngay_su_dung"/>
+                                <field name="phong_id"/>
+                                <field name="tong_thoi_gian_su_dung"/>
+                            </group>
                         </group>
-                        
+
+                        <group col="2">
+                            <separator string="📊 Chi Tiết Sử Dụng" colspan="2"/>
+                            <field name="chi_tiet_su_dung_ids">
+                                <tree>
+                                    <field name="nguoi_muon_id" string="👤 Người mượn"/>
+                                    <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/>
+                                    <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/>
+                                </tree>
+                            </field>
+                        </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
+        <!-- Tree View - Lịch sử Mượn Trả -->
         <record id="view_lich_su_muon_tra_tree" model="ir.ui.view">
-            <field name="name">lich_su_muon_tra</field>
+            <field name="name">lich_su_muon_tra_tree</field>
             <field name="model">lich_su_muon_tra</field>
             <field name="arch" type="xml">
-                <tree create="false">
-                    
-                    <field name="phong_id"/>
-                    <field name="nguoi_muon_id"/>
-                    <field name="thoi_gian_muon_du_kien"/>
-                    <field name="thoi_gian_muon_thuc_te"/>
-                    <field name="thoi_gian_tra_du_kien"/>
-                    <field name="thoi_gian_tra_thuc_te"/>
-                    <field name="trang_thai"/>
-                    <field name="ngay_thay_doi"/>
+                <tree string="📜 Lịch Sử Mượn Trả">
+                    <field name="ngay_su_dung" string="📅 Ngày"/>
+                    <field name="phong_id" string="🏢 Phòng"/>
+                    <field name="tong_thoi_gian_su_dung" string="⏳ Tổng thời gian"/>
                 </tree>
             </field>
         </record>
 
+        <!-- Search View -->
         <record model="ir.ui.view" id="lich_su_muon_tra_search">
             <field name="model">lich_su_muon_tra</field>
             <field name="arch" type="xml">
-                <search>
-                    
-                    <field name="phong_id"/>
-                    <field name="nguoi_muon_id"/>
-                    <field name="thoi_gian_muon_du_kien"/>
-                    <field name="thoi_gian_muon_thuc_te"/>
-                    <field name="thoi_gian_tra_du_kien"/>
-                    <field name="thoi_gian_tra_thuc_te"/>
-                    <field name="trang_thai"/>
-                    <field name="ngay_thay_doi"/>
+                <search string="🔍 Tìm kiếm Lịch Sử Mượn Trả">
+                    <field name="ngay_su_dung" string="📅 Ngày"/>
+                    <field name="phong_id" string="🏢 Phòng"/>
                 </search>
             </field>
         </record>
 
+        <!-- Action -->
         <record id="action_lich_su_muon_tra" model="ir.actions.act_window">
-            <field name="name">Lịch sử sử dụng</field>
+            <field name="name">📜 Lịch Sử Mượn Trả</field>
             <field name="res_model">lich_su_muon_tra</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref = "lich_su_muon_tra_search"/>
+            <field name="search_view_id" ref="lich_su_muon_tra_search"/>
         </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_lich_su_muon_tra" name="📜 Lịch Sử Mượn Trả" action="action_lich_su_muon_tra"/>
     </data>
 </odoo>
-        
-    
