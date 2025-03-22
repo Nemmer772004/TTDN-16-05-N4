@@ -9,7 +9,8 @@
                   parent="menu_root" 
                   sequence="1"
                   action="action_quan_ly_phong_hop"/>
-
+        <!-- Menu - Quản lý thiết bị -->
+        <menuitem id="menu_thiet_bi" name="📌 Quản lý Thiết Bị" action="action_thiet_bi"/>
         <menuitem name="Đăng ký mượn phòng" 
                   id="menu_dat_phong" 
                   parent="menu_root" 

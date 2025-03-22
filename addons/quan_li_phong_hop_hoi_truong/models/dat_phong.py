@@ -7,9 +7,9 @@ class DatPhong(models.Model):
 
     phong_id = fields.Many2one("quan_ly_phong_hop", string="Phòng họp", required=True)
     nguoi_muon_id = fields.Many2one("nhan_vien", string="Người mượn", required=True)  
-    thoi_gian_muon_du_kien = fields.Datetime(string="Thời gian mượn dự kiến")
+    thoi_gian_muon_du_kien = fields.Datetime(string="Thời gian mượn dự kiến", required=True)
     thoi_gian_muon_thuc_te = fields.Datetime(string="Thời gian mượn thực tế")
-    thoi_gian_tra_du_kien = fields.Datetime(string="Thời gian trả dự kiến")
+    thoi_gian_tra_du_kien = fields.Datetime(string="Thời gian trả dự kiến", required=True)
     thoi_gian_tra_thuc_te = fields.Datetime(string="Thời gian trả thực tế")
 
     trang_thai = fields.Selection([
@@ -32,7 +32,7 @@ class DatPhong(models.Model):
             record.write({"trang_thai": "đã_duyệt"})
             self._log_history(record)
 
-            # 1️⃣ Hủy các yêu cầu cùng phòng có thời gian trùng lặp
+            # Hủy các yêu cầu cùng phòng có thời gian trùng lặp
             domain_same_room = [
                 ('phong_id', '=', record.phong_id.id),
                 ('id', '!=', record.id),
@@ -45,7 +45,7 @@ class DatPhong(models.Model):
                 other.write({"trang_thai": "đã_hủy"})
                 self._log_history(other)
 
-            # 2️⃣ Hủy các yêu cầu khác phòng nhưng của cùng một người mượn nếu bị trùng thời gian
+            # Hủy các yêu cầu khác phòng nhưng của cùng một người mượn nếu bị trùng thời gian
             domain_same_person = [
                 ('nguoi_muon_id', '=', record.nguoi_muon_id.id),
                 ('id', '!=', record.id),

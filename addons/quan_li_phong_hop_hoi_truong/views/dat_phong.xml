@@ -7,25 +7,22 @@
             <field name="arch" type="xml">
                 <form string="📋 Chi tiết Đăng Ký Mượn Phòng">
                     <sheet>
-                        <!-- <div class="oe_title">
-                            <h1 style="color:#007bff;">🏢 Mượn phòng: <field name="phong_id"/></h1>
-                        </div> -->
-
+                       
                         <group col="2">
                             <group>
                                 <separator string="🏷 Thông tin chung" colspan="2"/>
                                 <field name="phong_id"/>
                                 <field name="nguoi_muon_id"/>
-                                <!-- <field name="trang_thai" string="📌 Trạng thái"/> -->
+                                
                             </group>
                         </group>
 
                         <group col="2">
                             <separator string="📅 Thời gian Mượn Trả" colspan="2"/>
                             <field name="thoi_gian_muon_du_kien" string="⏳ Mượn dự kiến"/>
-                            <!-- <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/> -->
+                         
                             <field name="thoi_gian_tra_du_kien" string="📆 Trả dự kiến"/>
-                            <!-- <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/> -->
+                       
                         </group>
                         <notebook>
                             <!-- Thêm tab hiển thị chi tiết sử dụng -->
@@ -57,9 +54,7 @@
                     <field name="phong_id" string="🏢 Phòng họp"/>
                     <field name="nguoi_muon_id" string="👤 Người mượn"/>
                     <field name="thoi_gian_muon_du_kien" string="⏳ Mượn dự kiến"/>
-                    <!-- <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/> -->
                     <field name="thoi_gian_tra_du_kien" string="📆 Trả dự kiến"/>
-                    <!-- <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/> -->
                     <field name="trang_thai" string="📌 Trạng thái"
                            decoration-muted="trang_thai=='đã_hủy'"
                            decoration-danger="trang_thai=='đang_sử_dụng'"
@@ -89,9 +84,7 @@
                     <field name="phong_id" string="🏢 Phòng họp"/>
                     <field name="nguoi_muon_id" string="👤 Người mượn"/>
                     <field name="thoi_gian_muon_du_kien" string="⏳ Mượn dự kiến"/>
-                    <!-- <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/> -->
                     <field name="thoi_gian_tra_du_kien" string="📆 Trả dự kiến"/>
-                    <!-- <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/> -->
                     <field name="trang_thai" string="📌 Trạng thái"/>
                 </search>
             </field>

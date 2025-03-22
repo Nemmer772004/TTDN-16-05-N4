@@ -7,8 +7,7 @@ class LichSuMuonTra(models.Model):
     _order = "ngay_su_dung desc, phong_id asc"
 
     ngay_su_dung = fields.Date(string="📅 Ngày", required=True, default=fields.Date.today)
-    phong_id = fields.Many2one("quan_ly_phong_hop", string="🏢 Phòng", required=True)
-    
+    phong_id = fields.Many2one("quan_ly_phong_hop", string="🏢 Phòng", required=True)    
     tong_thoi_gian_su_dung = fields.Char(string="⏳ Tổng thời gian sử dụng", compute="_compute_tong_thoi_gian", store=True)
 
     chi_tiet_su_dung_ids = fields.One2many("dat_phong", "phong_id", string="👥 Chi tiết sử dụng", domain=[("trang_thai", "=", "đã_trả")])

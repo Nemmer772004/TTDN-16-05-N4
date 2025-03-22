@@ -36,7 +36,7 @@
             <field name="name">lich_su_muon_tra_tree</field>
             <field name="model">lich_su_muon_tra</field>
             <field name="arch" type="xml">
-                <tree string="📜 Lịch Sử Mượn Trả">
+                <tree string="📜 Lịch Sử Mượn Trả" create="false">
                     <field name="ngay_su_dung" string="📅 Ngày"/>
                     <field name="phong_id" string="🏢 Phòng"/>
                     <field name="tong_thoi_gian_su_dung" string="⏳ Tổng thời gian"/>

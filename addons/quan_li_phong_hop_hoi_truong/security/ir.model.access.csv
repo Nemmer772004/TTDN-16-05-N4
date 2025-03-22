@@ -3,4 +3,5 @@ access_quan_ly_phong_hop,quan_ly_phong_hop.quan_ly_phong_hop,model_quan_ly_phong
 access_dat_phong,dat_phong.dat_phong,model_dat_phong,base.group_user,1,1,1,1
 access_lich_su_thay_doi,lich_su_thay_doi.lich_su_thay_doi,model_lich_su_thay_doi,base.group_user,1,1,1,1
 access_lich_su_muon_tra,lich_su_muon_tra.lich_su_muon_tra,model_lich_su_muon_tra,base.group_user,1,1,1,1
+access_thiet_bi,thiet_bi.thiet_bi,model_thiet_bi,base.group_user,1,1,1,1
 
