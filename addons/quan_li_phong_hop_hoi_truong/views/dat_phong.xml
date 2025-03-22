@@ -62,15 +62,15 @@
                            decoration-success="trang_thai=='chờ_duyệt'"/>
 
                     <!-- Nút hành động -->
-                    <button name="action_approve" string="✅ Duyệt" type="object" class="btn-primary"
+                    <button name="xac_nhan_duyet_phong" string="✅ Duyệt" type="object" class="btn-primary"
                         attrs="{'invisible': [('trang_thai', '!=', 'chờ_duyệt')]}"/>
-                    <button name="action_cancel" string="❌ Hủy" type="object" class="btn-danger"
+                    <button name="huy_muon_phong" string="❌ Hủy" type="object" class="btn-danger"
                         attrs="{'invisible': [('trang_thai', '!=', 'chờ_duyệt')]}"/>
-                    <button name="action_start_using" string="🚀 Bắt đầu" type="object" class="btn-success"
+                    <button name="bat_dau_su_dung" string="🚀 Bắt đầu" type="object" class="btn-success"
                         attrs="{'invisible': [('trang_thai', '!=', 'đã_duyệt')]}"/>
-                    <button name="action_cancel_approved" string="🛑 Hủy" type="object" class="btn-warning"
+                    <button name="huy_da_duyet" string="🛑 Hủy" type="object" class="btn-warning"
                         attrs="{'invisible': [('trang_thai', '!=', 'đã_duyệt')]}"/>
-                    <button name="action_return_room" string="🏠 Trả phòng" type="object" class="btn-info"
+                    <button name="tra_phong" string="🏠 Trả phòng" type="object" class="btn-info"
                         attrs="{'invisible': [('trang_thai', '!=', 'đang_sử_dụng')]}"/>
                 </tree>
             </field>

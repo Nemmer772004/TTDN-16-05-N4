@@ -36,15 +36,15 @@ class QuanLyPhongHop(models.Model):
     @api.depends("dat_phong_ids.trang_thai")
     def _compute_trang_thai(self):
         for record in self:
-            active_bookings = record.dat_phong_ids.filtered(lambda r: r.trang_thai in ["đã_duyệt", "đang_sử_dụng"])
-            using_bookings = record.dat_phong_ids.filtered(lambda r: r.trang_thai == "đang_sử_dụng")
-            canceled_or_returned = record.dat_phong_ids.filtered(lambda r: r.trang_thai in ["đã_hủy", "đã_trả"])
+            trang_thai_dat_phong = record.dat_phong_ids.filtered(lambda r: r.trang_thai in ["đã_duyệt", "đang_sử_dụng"])
+            trang_thai_dang_su_dung = record.dat_phong_ids.filtered(lambda r: r.trang_thai == "đang_sử_dụng")
+            trang_thai_da_huy_da_tra = record.dat_phong_ids.filtered(lambda r: r.trang_thai in ["đã_hủy", "đã_trả"])
 
-            if using_bookings:
+            if trang_thai_dang_su_dung:
                 record.trang_thai = "Đang_sử_dụng"
-            elif active_bookings:
+            elif trang_thai_dat_phong:
                 record.trang_thai = "Đã_mượn"
-            elif canceled_or_returned:
+            elif trang_thai_da_huy_da_tra:
                 record.trang_thai = "Trống"
             else:
                 record.trang_thai = "Trống"

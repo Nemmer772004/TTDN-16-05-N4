@@ -7,9 +7,6 @@
             <field name="arch" type="xml">
                 <form string="📋 Chi tiết Phòng Họp">
                     <sheet>
-                        <div class="oe_title">
-                            <h1 style="color:#007bff;">🏢 <field name="name"/></h1>
-                        </div>
 
                         <group col="2">
                             <group>

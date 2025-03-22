@@ -22,7 +22,7 @@ class DatPhong(models.Model):
 
     lich_su_ids = fields.One2many("lich_su_thay_doi", "dat_phong_id", string="Lịch sử mượn trả")
     chi_tiet_su_dung_ids = fields.One2many("dat_phong", "phong_id", string="Chi Tiết Sử Dụng", domain=[("trang_thai", "in", ["đang_sử_dụng", "đã_trả"])])
-    def action_approve(self):
+    def xac_nhan_duyet_phong(self):
         """ Xác nhận duyệt phòng và tự động hủy các yêu cầu bị trùng thời gian (cùng phòng hoặc khác phòng) """
         for record in self:
             if record.trang_thai != "chờ_duyệt":
@@ -30,65 +30,65 @@ class DatPhong(models.Model):
             
             # Duyệt yêu cầu hiện tại
             record.write({"trang_thai": "đã_duyệt"})
-            self._log_history(record)
+            self.lich_su(record)
 
             # Hủy các yêu cầu cùng phòng có thời gian trùng lặp
-            domain_same_room = [
+            cung_phong_trung_thoi_gian = [
                 ('phong_id', '=', record.phong_id.id),
                 ('id', '!=', record.id),
                 ('trang_thai', '=', 'chờ_duyệt'),
                 ('thoi_gian_muon_du_kien', '<', record.thoi_gian_tra_du_kien),
                 ('thoi_gian_tra_du_kien', '>', record.thoi_gian_muon_du_kien)
             ]
-            overlapping_same_room = self.search(domain_same_room)
-            for other in overlapping_same_room:
+            xu_li_cung_phong_trung_thoi_gian = self.search(cung_phong_trung_thoi_gian)
+            for other in xu_li_cung_phong_trung_thoi_gian:
                 other.write({"trang_thai": "đã_hủy"})
-                self._log_history(other)
+                self.lich_su(other)
 
             # Hủy các yêu cầu khác phòng nhưng của cùng một người mượn nếu bị trùng thời gian
-            domain_same_person = [
+            khac_phong_trung_thoi_gian = [
                 ('nguoi_muon_id', '=', record.nguoi_muon_id.id),
                 ('id', '!=', record.id),
                 ('trang_thai', '=', 'chờ_duyệt'),
                 ('thoi_gian_muon_du_kien', '<', record.thoi_gian_tra_du_kien),
                 ('thoi_gian_tra_du_kien', '>', record.thoi_gian_muon_du_kien)
             ]
-            overlapping_same_person = self.search(domain_same_person)
-            for other in overlapping_same_person:
+            xu_li_khac_phong_trung_thoi_gian = self.search(khac_phong_trung_thoi_gian)
+            for other in xu_li_khac_phong_trung_thoi_gian:
                 other.write({"trang_thai": "đã_hủy"})
-                self._log_history(other)
+                self.lich_su(other)
 
-    def action_cancel(self):
+    def huy_muon_phong(self):
         """ Hủy đăng ký mượn phòng """
         for record in self:
             if record.trang_thai != "chờ_duyệt":
                 raise exceptions.UserError("Chỉ có thể hủy yêu cầu có trạng thái 'Chờ duyệt'.")
             record.write({"trang_thai": "đã_hủy"})
-            self._log_history(record)
+            self.lich_su(record)
 
-    def action_cancel_approved(self):
+    def huy_da_duyet(self):
         """ Hủy yêu cầu đã duyệt """
         for record in self:
             if record.trang_thai != "đã_duyệt":
                 raise exceptions.UserError("Chỉ có thể hủy yêu cầu có trạng thái 'Đã duyệt'.")
             
             record.write({"trang_thai": "đã_hủy"})
-            self._log_history(record)
+            self.lich_su(record)
 
-    def action_start_using(self):
+    def bat_dau_su_dung(self):
         """ Bắt đầu sử dụng phòng - Cập nhật thời gian mượn thực tế """
         for record in self:
             if record.trang_thai != "đã_duyệt":
                 raise exceptions.UserError("Chỉ có thể bắt đầu sử dụng phòng có trạng thái 'Đã duyệt'.")
 
             # Kiểm tra nếu đã có người đang sử dụng phòng này
-            existing_using = self.env["dat_phong"].search([
+            kiem_tra_phong = self.env["dat_phong"].search([
                 ("phong_id", "=", record.phong_id.id),
                 ("trang_thai", "=", "đang_sử_dụng"),
                 ("id", "!=", record.id)
             ])
 
-            if existing_using:
+            if kiem_tra_phong:
                 raise exceptions.UserError(f"Phòng {record.phong_id.name} hiện đang được sử dụng. Vui lòng chờ đến khi phòng trống.")
 
             # Nếu không có ai đang sử dụng, cho phép bắt đầu
@@ -96,10 +96,10 @@ class DatPhong(models.Model):
                 "trang_thai": "đang_sử_dụng",
                 "thoi_gian_muon_thuc_te": datetime.now()
             })
-            self._log_history(record)
+            self.lich_su(record)
 
 
-    def action_return_room(self):
+    def tra_phong(self):
         """ Trả phòng - Cập nhật thời gian trả thực tế và đảm bảo thời gian mượn thực tế có giá trị """
         for record in self:
             if record.trang_thai != "đang_sử_dụng":
@@ -110,10 +110,10 @@ class DatPhong(models.Model):
                 "thoi_gian_tra_thuc_te": current_time,
                 "thoi_gian_muon_thuc_te": record.thoi_gian_muon_thuc_te or current_time
             })
-            self._log_history(record)
+            self.lich_su(record)
 
     @api.model
-    def _log_history(self, record):
+    def lich_su(self, record):
         """ Ghi vào lịch sử mượn trả """
         self.env["lich_su_thay_doi"].create({
             "dat_phong_id": record.id,

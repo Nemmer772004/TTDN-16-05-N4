@@ -39,7 +39,7 @@
                 <tree string="📜 Lịch Sử Mượn Trả" create="false">
                     <field name="ngay_su_dung" string="📅 Ngày"/>
                     <field name="phong_id" string="🏢 Phòng"/>
-                    <field name="tong_thoi_gian_su_dung" string="⏳ Tổng thời gian"/>
+                    <field name="tong_thoi_gian_su_dung" string="⏳ Tổng thời gian sử dụng"/>
                 </tree>
             </field>
         </record>
