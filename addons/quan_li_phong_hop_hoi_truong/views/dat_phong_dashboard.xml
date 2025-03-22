@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+
+        <!-- View biểu đồ theo trạng thái -->
+        <record id="view_dat_phong_graph_by_status" model="ir.ui.view">
+            <field name="name">dat.phong.graph.by.status</field>
+            <field name="model">dat_phong</field>
+            <field name="arch" type="xml">
+                <graph string="Thống kê chi tiết" type="bar">
+                    <field name="trang_thai" type="col"/>
+                    <field name="id" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_dat_phong_dashboard" model="ir.actions.act_window">
+            <field name="name">📊 Dashboard Trạng Thái Mượn Phòng</field>
+            <field name="res_model">dat_phong</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_dat_phong_graph_by_status"/>
+        </record>
+
+    </data>
+</odoo>

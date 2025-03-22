@@ -30,6 +30,7 @@
         'views/lich_su_thay_doi.xml',
         'views/lich_su_muon_tra.xml',
         'views/thiet_bi.xml',
+        'views/dat_phong_dashboard.xml',
         'views/menu.xml',
     ],
     # only loaded in demonstration mode

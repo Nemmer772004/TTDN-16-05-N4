@@ -46,5 +46,10 @@
                   parent="menu_root" 
                   sequence="3"
                   action="action_lich_su_muon_tra"/>
+
+        <menuitem id="menu_dashboard_trang_thai"
+                  name="📊 DashBoard"
+                  parent="menu_root"
+                  action="action_dat_phong_dashboard"/>
     </data>
 </odoo>
