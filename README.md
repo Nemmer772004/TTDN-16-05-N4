@@ -12,10 +12,10 @@
 
 ## 1.1. Clone project.
 ```
-git clone https://gitlab.com/anhlta/odoo-fitdnu.git
+git clone https://github.com/Nemmer772004/TTDN-16-05-N4.git
 ```
 ```
-git checkout cntt16_05
+git checkout nhom4
 ```
 
 
