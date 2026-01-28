@@ -103,22 +103,6 @@ Giao diện đăng nhập vào hệ thống Odoo với tính năng xác thực n
 
 ---
 
-### 📊 Dashboard Tổng quan
-Dashboard hiển thị tổng quan về hoạt động của hệ thống, thống kê nhanh các module quan trọng.
-
-<p align="center">
-  <img src="doc/images/dashboard.png" alt="Dashboard Tổng quan" width="90%"/>
-</p>
-
-**Các thông tin hiển thị:**
-- Biểu đồ thống kê nhân sự theo phòng ban
-- Tổng số tài sản và giá trị tài sản
-- Lịch họp hôm nay và tuần này
-- Thông báo và nhiệm vụ cần xử lý
-- Báo cáo nhanh về attendance và time-off
-
----
-
 ### 👥 Module Quản lý Nhân sự (HR Management)
 
 #### 📋 Danh sách Nhân viên
@@ -149,50 +133,6 @@ Hồ sơ chi tiết của từng nhân viên với đầy đủ thông tin cá n
 - Lịch sử nghỉ phép và chấm công
 - Tài liệu đính kèm (CV, bằng cấp, chứng chỉ)
 
-#### ⏰ Quản lý Chấm công
-Hệ thống chấm công check-in/check-out tự động với báo cáo chi tiết.
-
-<p align="center">
-  <img src="doc/images/hr_attendance.png" alt="Quản lý chấm công" width="90%"/>
-</p>
-
-**Tính năng:**
-- Check-in/Check-out với timestamp
-- Theo dõi giờ làm việc thực tế
-- Báo cáo chấm công theo ngày/tuần/tháng
-- Cảnh báo đi muộn, về sớm
-- Tích hợp với hệ thống máy chấm công
-
-#### 🏖️ Quản lý Nghỉ phép (Time Off)
-Quản lý đơn xin nghỉ, phê duyệt và theo dõi số ngày phép còn lại.
-
-<p align="center">
-  <img src="doc/images/hr_timeoff.png" alt="Quản lý nghỉ phép" width="90%"/>
-</p>
-
-**Chức năng:**
-- Tạo đơn xin nghỉ phép
-- Quy trình phê duyệt đa cấp
-- Theo dõi số ngày phép còn lại
-- Lịch sử nghỉ phép
-- Thông báo tự động khi có đơn mới
-
-#### 📑 Hợp đồng Lao động
-Quản lý hợp đồng lao động và thông tin lương của nhân viên.
-
-<p align="center">
-  <img src="doc/images/hr_contract.png" alt="Hợp đồng lao động" width="90%"/>
-</p>
-
-**Quản lý:**
-- Các loại hợp đồng (Thử việc, Có thời hạn, Vô thời hạn)
-- Thông tin lương cơ bản và phụ cấp
-- Ngày bắt đầu và kết thúc hợp đồng
-- Gia hạn và thanh lý hợp đồng
-- Lịch sử hợp đồng của nhân viên
-
----
-
 ### 🏗️ Module Quản lý Tài sản (Asset Management)
 
 #### 📦 Danh sách Tài sản
@@ -200,6 +140,9 @@ Quản lý danh sách tài sản cố định của công ty với thông tin ch
 
 <p align="center">
   <img src="doc/images/asset_list.png" alt="Danh sách tài sản" width="90%"/>
+</p>
+<p align="center">
+  <img src="doc/images/asset_listt.png" alt="Danh sách tài sản" width="90%"/>
 </p>
 
 **Thông tin tài sản:**
@@ -238,7 +181,7 @@ Lập kế hoạch và theo dõi các hoạt động bảo trì, sửa chữa t�
 - Theo dõi chi phí bảo trì
 - Lịch sử bảo trì và sửa chữa
 
-#### 📊 Báo cáo Tài sản
+#### 📊 Kiểm kê Tài sản
 Báo cáo tổng hợp về giá trị và tình trạng tài sản.
 
 <p align="center">
@@ -260,7 +203,7 @@ Báo cáo tổng hợp về giá trị và tình trạng tài sản.
 Quản lý thông tin các phòng họp và trang thiết bị.
 
 <p align="center">
-  <img src="doc/images/meeting_room_list.png" alt="Danh sách phòng họp" width="90%"/>
+  <img src="doc/images/meeting_booking.png" alt="Đặt phòng họp" width="90%"/>
 </p>
 
 **Thông tin phòng:**
@@ -274,8 +217,9 @@ Quản lý thông tin các phòng họp và trang thiết bị.
 Giao diện đặt phòng họp trực tuyến với calendar view.
 
 <p align="center">
-  <img src="doc/images/meeting_booking.png" alt="Đặt phòng họp" width="90%"/>
+  <img src="doc/images/meeting_room_list.png" alt="Danh sách phòng họp" width="90%"/>
 </p>
+
 
 **Tính năng:**
 - Xem lịch phòng trống/bận theo ngày/tuần/tháng
@@ -284,20 +228,6 @@ Giao diện đặt phòng họp trực tuyến với calendar view.
 - Mời người tham gia
 - Ghi chú mục đích họp
 - Thông báo tự động đến người liên quan
-
-#### 📋 Lịch họp của tôi
-Xem danh sách các cuộc họp sắp tới và lịch sử.
-
-<p align="center">
-  <img src="doc/images/my_meetings.png" alt="Lịch họp của tôi" width="90%"/>
-</p>
-
-**Quản lý:**
-- Danh sách cuộc họp sắp tới
-- Lịch sử cuộc họp đã tham gia
-- Hủy hoặc thay đổi lịch họp
-- Xác nhận tham dự
-- Ghi chú và biên bản họp
 
 #### 📊 Thống kê Phòng họp
 Báo cáo sử dụng phòng họp và hiệu suất.
@@ -314,39 +244,6 @@ Báo cáo sử dụng phòng họp và hiệu suất.
 - Đề xuất tối ưu hóa không gian
 
 ---
-
-### ⚙️ Quản lý Hệ thống
-
-#### 👤 Quản lý Người dùng
-Quản lý tài khoản và phân quyền người dùng trong hệ thống.
-
-<p align="center">
-  <img src="doc/images/user_management.png" alt="Quản lý người dùng" width="90%"/>
-</p>
-
-**Chức năng:**
-- Tạo/Sửa/Xóa tài khoản người dùng
-- Phân quyền theo nhóm (HR Manager, Asset Manager, Employee...)
-- Thiết lập quyền truy cập module
-- Quản lý phiên đăng nhập
-- Lịch sử hoạt động của người dùng
-
-#### 🔔 Thông báo
-Hệ thống thông báo và nhắc nhở tự động.
-
-<p align="center">
-  <img src="doc/images/notifications.png" alt="Thông báo" width="90%"/>
-</p>
-
-**Các loại thông báo:**
-- Thông báo phê duyệt nghỉ phép
-- Nhắc lịch họp sắp diễn ra
-- Cảnh báo tài sản cần bảo trì
-- Thông báo hợp đồng sắp hết hạn
-- Tin nhắn nội bộ và chat
-
----
-
 
 ## ⚙️ 4. Cài đặt
 
@@ -646,14 +543,14 @@ xmlrpc_port = 8070
 **Giảng viên hướng dẫn:** [Tên giảng viên]
 
 **Thành viên:**
-- Thành viên 1 - [Vai trò]
-- Thành viên 2 - [Vai trò]
-- Thành viên 3 - [Vai trò]
-- Thành viên 4 - [Vai trò]
+- Nguyễn Phương Nam - [Trưởng nhóm]
+- Nguyễn Anh Tuấn - [Thành viên]
+- Hồ Đức Mạnh - [Thành viên]
+
 
 **Trường:** Đại học Đại Nam  
 **Khoa:** Công nghệ Thông tin  
-**Năm học:** 2025-2026
+**Năm học:** 2026-2027
 
 ---
 
