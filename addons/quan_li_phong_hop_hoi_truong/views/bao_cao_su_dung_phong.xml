@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Pivot View -->
+        <record id="view_bao_cao_su_dung_phong_pivot" model="ir.ui.view">
+            <field name="name">bao_cao.su.dung.phong.pivot</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <pivot string="Báo cáo sử dụng phòng">
+                    <field name="phong_id" type="row"/>
+                    <field name="ngay" interval="month" type="col"/>
+                    <field name="so_lan_su_dung" type="measure"/>
+                    <field name="tong_thoi_gian_gio" type="measure"/>
+                    <field name="tong_chi_phi" type="measure"/>
+                    <field name="trung_binh_danh_gia" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Graph View - Bar Chart -->
+        <record id="view_bao_cao_su_dung_phong_graph" model="ir.ui.view">
+            <field name="name">bao.cao.su.dung.phong.graph</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <graph string="Thống kê sử dụng phòng" type="bar">
+                    <field name="phong_id"/>
+                    <field name="tong_thoi_gian_gio" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_bao_cao_su_dung_phong_tree" model="ir.ui.view">
+            <field name="name">bao_cao.su_dung_phong.tree</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <tree string="Báo cáo sử dụng phòng">
+                    <field name="ngay"/>
+                    <field name="phong_id"/>
+                    <field name="nguoi_muon_id"/>
+                    <field name="so_lan_su_dung" sum="Tổng"/>
+                    <field name="tong_thoi_gian_gio" sum="Tổng giờ" widget="float_time"/>
+                    <field name="tong_chi_phi" sum="Tổng chi phí"/>
+                    <field name="trung_binh_danh_gia" avg="Trung bình"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_bao_cao_su_dung_phong" model="ir.actions.act_window">
+            <field name="name">Báo cáo sử dụng phòng</field>
+            <field name="res_model">bao_cao_su_dung_phong</field>
+            <field name="view_mode">pivot,graph,tree</field>
+            <field name="context">{'group_by': ['phong_id', 'ngay:month']}</field>
+        </record>
+    </data>
+</odoo>

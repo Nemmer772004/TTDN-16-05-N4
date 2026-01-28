@@ -20,16 +20,18 @@
     'version': '0.1',
     'license': 'LGPL-3',
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'quan_ly_nhan_su', 'base_automation'],
 
     # always loaded
     'data': [
+        'security/security_groups.xml',
         'security/ir.model.access.csv',
         'views/quan_ly_phong_hop.xml',
         'views/dat_phong.xml',
         'views/lich_su_thay_doi.xml',
         'views/lich_su_muon_tra.xml',
         'views/thiet_bi.xml',
+        'views/bao_cao_su_dung_phong.xml',
         'views/dat_phong_dashboard.xml',
         'views/menu.xml',
     ],

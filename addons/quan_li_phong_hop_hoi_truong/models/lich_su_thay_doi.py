@@ -3,7 +3,7 @@ from datetime import datetime
 
 class LichSuThayDoi(models.Model):
     _name = "lich_su_thay_doi"
-    _description = "Lịch sử thay đổi trạng thái của phòng họp, hội trường"
+    _description = "Lịch sử thay đổi trạng thái của phòng họp"
 
     dat_phong_id = fields.Many2one("dat_phong", string="Mã đăng ký", required=True, ondelete="cascade")
     phong_id = fields.Many2one("quan_ly_phong_hop", string="Phòng", related="dat_phong_id.phong_id", store=True)
