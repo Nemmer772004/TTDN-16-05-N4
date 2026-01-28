@@ -11,13 +11,17 @@
 </h3>
 
 <div align="center">
+    <p align="center">
+        <img src="docs/logo/aiotlab_logo.png" alt="AIoTLab Logo" width="170"/>
+        <img src="docs/logo/fitdnu_logo.png" alt="AIoTLab Logo" width="180"/>
+        <img src="docs/logo/dnu_logo.png" alt="DaiNam University Logo" width="200"/>
+    </p>
 
 [![AIoTLab](https://img.shields.io/badge/AIoTLab-green?style=for-the-badge)](https://www.facebook.com/DNUAIoTLab)
 [![Faculty of Information Technology](https://img.shields.io/badge/Faculty%20of%20Information%20Technology-blue?style=for-the-badge)](https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin)
 [![DaiNam University](https://img.shields.io/badge/DaiNam%20University-orange?style=for-the-badge)](https://dainam.edu.vn)
 
 </div>
-
 ---
 
 ## 📖 1. Giới thiệu
@@ -87,17 +91,262 @@ Thay vì quản lý thủ công bằng giấy tờ hay các tệp Excel rời r�
 
 ## 🚀 3. Hình ảnh các chức năng
 
+### 🏠 Trang Đăng nhập
+Giao diện đăng nhập vào hệ thống Odoo với tính năng xác thực người dùng an toàn.
+
+<p align="center">
+  <img src="doc/images/login.png" alt="Trang đăng nhập Odoo" width="90%"/>
+</p>
+
+**Tính năng chính:**
+- Xác thực tài khoản email/password
+- Hỗ trợ đa ngôn ngữ (Tiếng Việt/English)
+- Quên mật khẩu và khôi phục tài khoản
+- Bảo mật 2FA (Two-Factor Authentication)
+
+---
+
 ### 📊 Dashboard Tổng quan
-_Giao diện dashboard chính của hệ thống Odoo_
+Dashboard hiển thị tổng quan về hoạt động của hệ thống, thống kê nhanh các module quan trọng.
 
-### 👥 Module Quản lý Nhân sự
-_Quản lý thông tin nhân viên, hợp đồng và chấm công_
+<p align="center">
+  <img src="doc/images/dashboard.png" alt="Dashboard Tổng quan" width="90%"/>
+</p>
 
-### 🏗️ Module Quản lý Tài sản
-_Theo dõi tài sản, khấu hao và bảo trì_
+**Các thông tin hiển thị:**
+- Biểu đồ thống kê nhân sự theo phòng ban
+- Tổng số tài sản và giá trị tài sản
+- Lịch họp hôm nay và tuần này
+- Thông báo và nhiệm vụ cần xử lý
+- Báo cáo nhanh về attendance và time-off
 
-### 📅 Module Quản lý Phòng họp
-_Đặt phòng và quản lý lịch họp_
+---
+
+### 👥 Module Quản lý Nhân sự (HR Management)
+
+#### 📋 Danh sách Nhân viên
+Giao diện quản lý danh sách nhân viên với đầy đủ thông tin cá nhân, chức vụ và bộ phận.
+
+<p align="center">
+  <img src="doc/images/hr_employee_list.png" alt="Danh sách nhân viên" width="90%"/>
+</p>
+
+**Chức năng:**
+- Xem danh sách nhân viên dạng list/kanban/form
+- Tìm kiếm và lọc theo phòng ban, chức vụ
+- Thêm/Sửa/Xóa thông tin nhân viên
+- Export dữ liệu ra Excel/CSV
+- Import hàng loạt từ file
+
+#### 📝 Thông tin Chi tiết Nhân viên
+Hồ sơ chi tiết của từng nhân viên với đầy đủ thông tin cá nhân và công việc.
+
+<p align="center">
+  <img src="doc/images/hr_employee_detail.png" alt="Chi tiết nhân viên" width="90%"/>
+</p>
+
+**Thông tin bao gồm:**
+- Thông tin cá nhân (Họ tên, Email, SĐT, Địa chỉ)
+- Thông tin công việc (Chức vụ, Phòng ban, Manager)
+- Hợp đồng lao động và lương
+- Lịch sử nghỉ phép và chấm công
+- Tài liệu đính kèm (CV, bằng cấp, chứng chỉ)
+
+#### ⏰ Quản lý Chấm công
+Hệ thống chấm công check-in/check-out tự động với báo cáo chi tiết.
+
+<p align="center">
+  <img src="doc/images/hr_attendance.png" alt="Quản lý chấm công" width="90%"/>
+</p>
+
+**Tính năng:**
+- Check-in/Check-out với timestamp
+- Theo dõi giờ làm việc thực tế
+- Báo cáo chấm công theo ngày/tuần/tháng
+- Cảnh báo đi muộn, về sớm
+- Tích hợp với hệ thống máy chấm công
+
+#### 🏖️ Quản lý Nghỉ phép (Time Off)
+Quản lý đơn xin nghỉ, phê duyệt và theo dõi số ngày phép còn lại.
+
+<p align="center">
+  <img src="doc/images/hr_timeoff.png" alt="Quản lý nghỉ phép" width="90%"/>
+</p>
+
+**Chức năng:**
+- Tạo đơn xin nghỉ phép
+- Quy trình phê duyệt đa cấp
+- Theo dõi số ngày phép còn lại
+- Lịch sử nghỉ phép
+- Thông báo tự động khi có đơn mới
+
+#### 📑 Hợp đồng Lao động
+Quản lý hợp đồng lao động và thông tin lương của nhân viên.
+
+<p align="center">
+  <img src="doc/images/hr_contract.png" alt="Hợp đồng lao động" width="90%"/>
+</p>
+
+**Quản lý:**
+- Các loại hợp đồng (Thử việc, Có thời hạn, Vô thời hạn)
+- Thông tin lương cơ bản và phụ cấp
+- Ngày bắt đầu và kết thúc hợp đồng
+- Gia hạn và thanh lý hợp đồng
+- Lịch sử hợp đồng của nhân viên
+
+---
+
+### 🏗️ Module Quản lý Tài sản (Asset Management)
+
+#### 📦 Danh sách Tài sản
+Quản lý danh sách tài sản cố định của công ty với thông tin chi tiết.
+
+<p align="center">
+  <img src="doc/images/asset_list.png" alt="Danh sách tài sản" width="90%"/>
+</p>
+
+**Thông tin tài sản:**
+- Mã tài sản và tên tài sản
+- Loại tài sản (Máy móc, Thiết bị, Xe cộ, Nhà cửa...)
+- Giá trị ban đầu và giá trị còn lại
+- Ngày mua và hạn sử dụng
+- Trạng thái (Đang sử dụng, Bảo trì, Thanh lý)
+- Người quản lý và phòng ban sử dụng
+
+#### 💰 Quản lý Khấu hao
+Tự động tính toán và quản lý khấu hao tài sản theo các phương pháp khác nhau.
+
+<p align="center">
+  <img src="doc/images/asset_depreciation.png" alt="Quản lý khấu hao" width="90%"/>
+</p>
+
+**Tính năng:**
+- Phương pháp khấu hao đường thẳng
+- Phương pháp khấu hao giảm dần
+- Tự động tạo bút toán khấu hao hàng tháng
+- Báo cáo giá trị tài sản qua thời gian
+- Lịch sử khấu hao chi tiết
+
+#### 🔧 Quản lý Bảo trì
+Lập kế hoạch và theo dõi các hoạt động bảo trì, sửa chữa tài sản.
+
+<p align="center">
+  <img src="doc/images/asset_maintenance.png" alt="Quản lý bảo trì" width="90%"/>
+</p>
+
+**Quản lý:**
+- Tạo yêu cầu bảo trì
+- Lịch bảo trì định kỳ
+- Gán người phụ trách
+- Theo dõi chi phí bảo trì
+- Lịch sử bảo trì và sửa chữa
+
+#### 📊 Báo cáo Tài sản
+Báo cáo tổng hợp về giá trị và tình trạng tài sản.
+
+<p align="center">
+  <img src="doc/images/asset_report.png" alt="Báo cáo tài sản" width="90%"/>
+</p>
+
+**Các báo cáo:**
+- Báo cáo giá trị tài sản theo phòng ban
+- Báo cáo khấu hao theo kỳ
+- Báo cáo tình trạng bảo trì
+- Báo cáo chi phí duy trì tài sản
+- Dự báo thanh lý và thay thế
+
+---
+
+### 📅 Module Quản lý Phòng họp (Meeting Room Management)
+
+#### 🏢 Danh sách Phòng họp
+Quản lý thông tin các phòng họp và trang thiết bị.
+
+<p align="center">
+  <img src="doc/images/meeting_room_list.png" alt="Danh sách phòng họp" width="90%"/>
+</p>
+
+**Thông tin phòng:**
+- Tên và mã phòng họp
+- Sức chứa (số người)
+- Trang thiết bị (Projector, TV, Whiteboard, Audio...)
+- Vị trí (Tầng, Khu vực)
+- Trạng thái (Sẵn sàng, Đang sử dụng, Bảo trì)
+
+#### 📆 Đặt phòng họp
+Giao diện đặt phòng họp trực tuyến với calendar view.
+
+<p align="center">
+  <img src="doc/images/meeting_booking.png" alt="Đặt phòng họp" width="90%"/>
+</p>
+
+**Tính năng:**
+- Xem lịch phòng trống/bận theo ngày/tuần/tháng
+- Đặt phòng nhanh chóng
+- Chọn thời gian bắt đầu và kết thúc
+- Mời người tham gia
+- Ghi chú mục đích họp
+- Thông báo tự động đến người liên quan
+
+#### 📋 Lịch họp của tôi
+Xem danh sách các cuộc họp sắp tới và lịch sử.
+
+<p align="center">
+  <img src="doc/images/my_meetings.png" alt="Lịch họp của tôi" width="90%"/>
+</p>
+
+**Quản lý:**
+- Danh sách cuộc họp sắp tới
+- Lịch sử cuộc họp đã tham gia
+- Hủy hoặc thay đổi lịch họp
+- Xác nhận tham dự
+- Ghi chú và biên bản họp
+
+#### 📊 Thống kê Phòng họp
+Báo cáo sử dụng phòng họp và hiệu suất.
+
+<p align="center">
+  <img src="doc/images/meeting_statistics.png" alt="Thống kê phòng họp" width="90%"/>
+</p>
+
+**Báo cáo:**
+- Tỷ lệ sử dụng phòng theo thời gian
+- Phòng được sử dụng nhiều nhất
+- Thời gian peak hours
+- Số lượng cuộc họp theo phòng ban
+- Đề xuất tối ưu hóa không gian
+
+---
+
+### ⚙️ Quản lý Hệ thống
+
+#### 👤 Quản lý Người dùng
+Quản lý tài khoản và phân quyền người dùng trong hệ thống.
+
+<p align="center">
+  <img src="doc/images/user_management.png" alt="Quản lý người dùng" width="90%"/>
+</p>
+
+**Chức năng:**
+- Tạo/Sửa/Xóa tài khoản người dùng
+- Phân quyền theo nhóm (HR Manager, Asset Manager, Employee...)
+- Thiết lập quyền truy cập module
+- Quản lý phiên đăng nhập
+- Lịch sử hoạt động của người dùng
+
+#### 🔔 Thông báo
+Hệ thống thông báo và nhắc nhở tự động.
+
+<p align="center">
+  <img src="doc/images/notifications.png" alt="Thông báo" width="90%"/>
+</p>
+
+**Các loại thông báo:**
+- Thông báo phê duyệt nghỉ phép
+- Nhắc lịch họp sắp diễn ra
+- Cảnh báo tài sản cần bảo trì
+- Thông báo hợp đồng sắp hết hạn
+- Tin nhắn nội bộ và chat
 
 ---
 
