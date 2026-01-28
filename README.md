@@ -53,6 +53,11 @@ Dự án **Hệ thống Quản lý Doanh nghiệp** được xây dựng trên n
 
 Thay vì quản lý thủ công bằng giấy tờ hay các tệp Excel rời rạc, hệ thống mang đến một giải pháp **tập trung, hiện đại và dễ sử dụng**, giúp doanh nghiệp nâng cao hiệu quả vận hành.
 
+##  Poster dự án 
+<p align="center">
+  <img src="doc/images/poster.png" width="95%"/>
+</p>
+
 ---
 
 ## 🔧 2. Các công nghệ được sử dụng
@@ -85,10 +90,6 @@ Thay vì quản lý thủ công bằng giấy tờ hay các tệp Excel rời r�
 </div>
 
 ---
-##  Poster dự án 
-<p align="center">
-  <img src="doc/images/poster.png" width="95%"/>
-</p>
 
 ## 🚀 3. Hình ảnh các chức năng
 
