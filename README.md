@@ -55,7 +55,7 @@ Thay vì quản lý thủ công bằng giấy tờ hay các tệp Excel rời r�
 
 ##  Poster dự án 
 <p align="center">
-  <img src="doc/images/poster.png" width="95%"/>
+  <img src="doc/images/poster.jpg" width="95%"/>
 </p>
 
 ---
@@ -545,7 +545,8 @@ xmlrpc_port = 8070
 
 **Nhóm 4 - TTDN-16-05-N4**
 
-**Giảng viên hướng dẫn:** [Tên giảng viên]
+**Giảng viên hướng dẫn:** - Lê Tuấn Anh
+- Nguyễn Thế Huy Hoàng
 
 **Thành viên:**
 - Nguyễn Phương Nam - [Trưởng nhóm]
