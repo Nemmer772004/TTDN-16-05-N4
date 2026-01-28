@@ -85,6 +85,10 @@ Thay vì quản lý thủ công bằng giấy tờ hay các tệp Excel rời r�
 </div>
 
 ---
+##  Poster dự án 
+<p align="center">
+  <img src="doc/images/poster_du_an.png" width="95%"/>
+</p>
 
 ## 🚀 3. Hình ảnh các chức năng
 
