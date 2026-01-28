@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence for Equipment Borrowing -->
+        <record id="seq_equipment_borrowing" model="ir.sequence">
+            <field name="name">Equipment Borrowing</field>
+            <field name="code">equipment.borrowing</field>
+            <field name="prefix">EB</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

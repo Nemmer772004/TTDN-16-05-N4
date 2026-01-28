@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_hr_role_tree" model="ir.ui.view">
+            <field name="name">hr.role.tree</field>
+            <field name="model">hr.role</field>
+            <field name="arch" type="xml">
+                <tree string="Vai trò nghiệp vụ">
+                    <field name="ma_vai_tro"/>
+                    <field name="ten_vai_tro"/>
+                    <field name="loai_vai_tro"/>
+                    <field name="so_luong_nhan_vien"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_hr_role_form" model="ir.ui.view">
+            <field name="name">hr.role.form</field>
+            <field name="model">hr.role</field>
+            <field name="arch" type="xml">
+                <form string="Vai trò nghiệp vụ">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="ma_vai_tro"/>
+                                <field name="ten_vai_tro"/>
+                                <field name="loai_vai_tro"/>
+                            </group>
+                            <group>
+                                <field name="so_luong_nhan_vien"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="mo_ta"/>
+                        </group>
+                        <notebook>
+                            <page string="Danh sách nhân viên">
+                                <field name="nhan_vien_ids">
+                                    <tree>
+                                        <field name="ma_dinh_danh"/>
+                                        <field name="ho_va_ten"/>
+                                        <field name="email"/>
+                                        <field name="so_dien_thoai"/>
+                                        <field name="trang_thai"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_hr_role_search" model="ir.ui.view">
+            <field name="name">hr.role.search</field>
+            <field name="model">hr.role</field>
+            <field name="arch" type="xml">
+                <search string="Tìm kiếm vai trò">
+                    <field name="ma_vai_tro"/>
+                    <field name="ten_vai_tro"/>
+                    <field name="loai_vai_tro"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Loại vai trò" name="group_loai" context="{'group_by':'loai_vai_tro'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_hr_role" model="ir.actions.act_window">
+            <field name="name">Vai trò nghiệp vụ</field>
+            <field name="res_model">hr.role</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

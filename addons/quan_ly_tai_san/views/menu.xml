@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu chính -->
+    <menuitem id="menu_quan_ly_tai_san_root"
+              name="Quản Lý Tài Sản"
+              sequence="10"
+              web_icon="quan_ly_tai_san,static/description/icon.png"/>
+
+    <!-- Menu Tài sản -->
+    <menuitem id="menu_tai_san"
+              name="Tài sản"
+              parent="menu_quan_ly_tai_san_root"
+              sequence="10"/>
+    
+    <menuitem id="menu_tai_san_list"
+              name="Danh sách tài sản"
+              parent="menu_tai_san"
+              action="action_tai_san"
+              sequence="10"/>
+    
+    <menuitem id="menu_lich_su_su_dung"
+              name="Lịch sử sử dụng"
+              parent="menu_tai_san"
+              action="action_lich_su_su_dung"
+              sequence="20"/>
+
+    <!-- Menu Bảo trì -->
+    <menuitem id="menu_bao_tri"
+              name="Bảo trì"
+              parent="menu_quan_ly_tai_san_root"
+              sequence="20"/>
+    
+    <menuitem id="menu_bao_tri_list"
+              name="Bảo trì tài sản"
+              parent="menu_bao_tri"
+              action="action_bao_tri"
+              sequence="10"/>
+
+    <!-- Menu Chuyển giao -->
+    <menuitem id="menu_chuyen_giao"
+              name="Chuyển giao"
+              parent="menu_quan_ly_tai_san_root"
+              sequence="30"/>
+    
+    <menuitem id="menu_chuyen_giao_list"
+              name="Chuyển giao tài sản"
+              parent="menu_chuyen_giao"
+              action="action_chuyen_giao"
+              sequence="10"/>
+
+    <!-- Menu Kiểm kê -->
+    <menuitem id="menu_kiem_ke"
+              name="Kiểm kê"
+              parent="menu_quan_ly_tai_san_root"
+              sequence="40"/>
+    
+    <menuitem id="menu_kiem_ke_list"
+              name="Kiểm kê tài sản"
+              parent="menu_kiem_ke"
+              action="action_kiem_ke"
+              sequence="10"/>
+
+    <!-- Menu Báo cáo -->
+    <menuitem id="menu_bao_cao"
+              name="Báo cáo"
+              parent="menu_quan_ly_tai_san_root"
+              sequence="50"/>
+
+    <!-- Menu Cấu hình -->
+    <menuitem id="menu_cau_hinh"
+              name="Cấu hình"
+              parent="menu_quan_ly_tai_san_root"
+              sequence="100"/>
+</odoo>

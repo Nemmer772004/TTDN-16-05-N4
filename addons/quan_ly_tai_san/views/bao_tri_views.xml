@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Bảo trì -->
+    <record id="view_bao_tri_form" model="ir.ui.view">
+        <field name="name">bao_tri_tai_san.form</field>
+        <field name="model">bao_tri_tai_san</field>
+        <field name="arch" type="xml">
+            <form string="Bảo trì tài sản">
+                <header>
+                    <button name="action_bat_dau_bao_tri" string="Bắt đầu bảo trì" type="object" 
+                            class="btn-primary" attrs="{'invisible': [('trang_thai', '!=', 'ke_hoach')]}"/>
+                    <button name="action_hoan_thanh_bao_tri" string="Hoàn thành" type="object" 
+                            class="btn-success" attrs="{'invisible': [('trang_thai', '!=', 'dang_bao_tri')]}"/>
+                    <field name="trang_thai" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tai_san_id" options="{'no_create': True}"/>
+                            <field name="ma_tai_san" readonly="1"/>
+                            <field name="loai_bao_tri"/>
+                            <field name="ngay_bao_tri"/>
+                        </group>
+                        <group>
+                            <field name="nguoi_thuc_hien"/>
+                            <field name="chi_phi"/>
+                            <field name="trang_thai"/>
+                            <field name="ngay_bao_tri_tiep_theo" readonly="1" 
+                                   attrs="{'invisible': [('loai_bao_tri', '!=', 'dinh_ky')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="mo_ta_van_de" placeholder="Mô tả vấn đề cần bảo trì..."/>
+                        </group>
+                        <group>
+                            <field name="ket_qua" placeholder="Kết quả sau khi bảo trì..."/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="file_dinh_kem" filename="ten_file"/>
+                        <field name="ten_file" invisible="1"/>
+                        <field name="ghi_chu" placeholder="Ghi chú thêm..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Bảo trì -->
+    <record id="view_bao_tri_tree" model="ir.ui.view">
+        <field name="name">bao_tri_tai_san.tree</field>
+        <field name="model">bao_tri_tai_san</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách bảo trì">
+                <field name="name"/>
+                <field name="tai_san_id"/>
+                <field name="loai_bao_tri"/>
+                <field name="ngay_bao_tri"/>
+                <field name="nguoi_thuc_hien"/>
+                <field name="chi_phi" sum="Tổng chi phí"/>
+                <field name="trang_thai" decoration-info="trang_thai == 'ke_hoach'" 
+                       decoration-warning="trang_thai == 'dang_bao_tri'" 
+                       decoration-success="trang_thai == 'hoan_thanh'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Calendar View Bảo trì -->
+    <record id="view_bao_tri_calendar" model="ir.ui.view">
+        <field name="name">bao_tri_tai_san.calendar</field>
+        <field name="model">bao_tri_tai_san</field>
+        <field name="arch" type="xml">
+            <calendar string="Lịch bảo trì" date_start="ngay_bao_tri" color="loai_bao_tri">
+                <field name="tai_san_id"/>
+                <field name="loai_bao_tri"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Search View Bảo trì -->
+    <record id="view_bao_tri_search" model="ir.ui.view">
+        <field name="name">bao_tri_tai_san.search</field>
+        <field name="model">bao_tri_tai_san</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm bảo trì">
+                <field name="name"/>
+                <field name="tai_san_id"/>
+                <field name="nguoi_thuc_hien"/>
+                <filter string="Kế hoạch" name="ke_hoach" domain="[('trang_thai', '=', 'ke_hoach')]"/>
+                <filter string="Đang bảo trì" name="dang_bao_tri" domain="[('trang_thai', '=', 'dang_bao_tri')]"/>
+                <filter string="Hoàn thành" name="hoan_thanh" domain="[('trang_thai', '=', 'hoan_thanh')]"/>
+                <separator/>
+                <filter string="Bảo trì định kỳ" name="dinh_ky" domain="[('loai_bao_tri', '=', 'dinh_ky')]"/>
+                <filter string="Sửa chữa" name="sua_chua" domain="[('loai_bao_tri', '=', 'sua_chua')]"/>
+                <filter string="Nâng cấp" name="nang_cap" domain="[('loai_bao_tri', '=', 'nang_cap')]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter string="Tài sản" name="group_tai_san" context="{'group_by':'tai_san_id'}"/>
+                    <filter string="Loại bảo trì" name="group_loai" context="{'group_by':'loai_bao_tri'}"/>
+                    <filter string="Trạng thái" name="group_trang_thai" context="{'group_by':'trang_thai'}"/>
+                    <filter string="Ngày bảo trì" name="group_ngay" context="{'group_by':'ngay_bao_tri'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Bảo trì -->
+    <record id="action_bao_tri" model="ir.actions.act_window">
+        <field name="name">Bảo trì tài sản</field>
+        <field name="res_model">bao_tri_tai_san</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="context">{'search_default_dang_bao_tri': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo phiếu bảo trì mới
+            </p>
+            <p>
+                Quản lý lịch bảo trì định kỳ, sửa chữa và nâng cấp tài sản.
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -20,7 +20,7 @@
     'version': '0.1',
     'license': 'LGPL-3',
     # any module necessary for this one to work correctly
-    'depends': ['base', 'quan_ly_nhan_su', 'base_automation'],
+    'depends': ['base', 'quan_ly_nhan_su', 'quan_ly_tai_san', 'base_automation', 'mail'],
 
     # always loaded
     'data': [
@@ -30,7 +30,7 @@
         'views/dat_phong.xml',
         'views/lich_su_thay_doi.xml',
         'views/lich_su_muon_tra.xml',
-        'views/thiet_bi.xml',
+        # 'views/thiet_bi.xml',  # Không dùng nữa - dùng tai_san từ module quan_ly_tai_san
         'views/bao_cao_su_dung_phong.xml',
         'views/dat_phong_dashboard.xml',
         'views/menu.xml',

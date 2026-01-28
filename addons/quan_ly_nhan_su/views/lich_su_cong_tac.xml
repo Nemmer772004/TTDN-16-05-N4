@@ -7,18 +7,13 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Nhân viên</div>
+                        <div class="oe_read_only" style="font-size:25px">Lịch sử công tác</div>
                         <group col="4" string="Thông tin chung">
                             <field name="nhan_vien_id"/>
-                            <field name="phong_ban_id"/>
                             <field name="chuc_vu_id"/>
-                            <field name="loai_chuc_vu_id"/>
+                            <field name="don_vi_id"/>
+                            <field name="loai_chuc_vu"/>
                         </group>
-                        <notebook>
-                            <page string="Danh sách lịch sử công tác">
-                                <field name="nhan_vien_id"></field>
-                            </page>
-                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -30,22 +25,21 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="nhan_vien_id"/>
-                    <field name="phong_ban_id"/>
                     <field name="chuc_vu_id"/>
-                    <field name="loai_chuc_vu_id"/>
+                    <field name="don_vi_id"/>
+                    <field name="loai_chuc_vu"/>
                 </tree>
             </field>
         </record>
 
         <record model="ir.ui.view" id="lich_su_cong_tac_search">
-            <field name="name">lich_su_cong_tac.search</field>
             <field name="model">lich_su_cong_tac</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="nhan_vien_id"/>
-                    <field name="phong_ban_id"/>
                     <field name="chuc_vu_id"/>
-                    <field name="loai_chuc_vu_id"/>
+                    <field name="don_vi_id"/>
+                    <field name="loai_chuc_vu"/>
                 </search>
             </field>
         </record>

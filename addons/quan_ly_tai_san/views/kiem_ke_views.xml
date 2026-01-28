@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Kiểm kê -->
+    <record id="view_kiem_ke_form" model="ir.ui.view">
+        <field name="name">kiem_ke_tai_san.form</field>
+        <field name="model">kiem_ke_tai_san</field>
+        <field name="arch" type="xml">
+            <form string="Kiểm kê tài sản">
+                <header>
+                    <button name="action_bat_dau_kiem_ke" string="Bắt đầu kiểm kê" type="object" 
+                            class="btn-primary" attrs="{'invisible': [('trang_thai', '!=', 'du_thao')]}"/>
+                    <button name="action_hoan_thanh_kiem_ke" string="Hoàn thành" type="object" 
+                            class="btn-success" attrs="{'invisible': [('trang_thai', '!=', 'dang_kiem_ke')]}"/>
+                    <button name="action_huy_kiem_ke" string="Hủy" type="object" 
+                            class="btn-danger" attrs="{'invisible': [('trang_thai', 'in', ['hoan_thanh', 'huy'])]}"/>
+                    <field name="trang_thai" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h2>
+                            <field name="tieu_de" placeholder="Tiêu đề kiểm kê..."/>
+                        </h2>
+                    </div>
+                    
+                    <group>
+                        <group string="Thông tin kiểm kê">
+                            <field name="ngay_kiem_ke"/>
+                            <field name="ngay_bat_dau"/>
+                            <field name="ngay_ket_thuc" readonly="1"/>
+                        </group>
+                        <group string="Phạm vi kiểm kê">
+                            <field name="phong_ban_id"/>
+                            <field name="loai_tai_san"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Đội kiểm kê">
+                        <group>
+                            <field name="truong_doan_id"/>
+                        </group>
+                        <group>
+                            <field name="thanh_vien_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    
+                    <!-- Thống kê -->
+                    <group string="Thống kê kết quả" attrs="{'invisible': [('trang_thai', '=', 'du_thao')]}">
+                        <group>
+                            <field name="tong_so_tai_san" readonly="1"/>
+                            <field name="so_tai_san_khop" readonly="1"/>
+                            <field name="so_tai_san_lech" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="so_tai_san_thieu" readonly="1"/>
+                            <field name="so_tai_san_thua" readonly="1"/>
+                            <field name="ty_le_khop" readonly="1" widget="percentage"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <field name="mo_ta" placeholder="Mô tả về đợt kiểm kê..."/>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Chi tiết kiểm kê">
+                            <group>
+                                <button name="action_bat_dau_kiem_ke" string="Tải danh sách tài sản" type="object" 
+                                        class="btn-primary" icon="fa-refresh"
+                                        help="Tự động tạo danh sách tài sản cần kiểm kê theo phòng ban và loại tài sản đã chọn"/>
+                            </group>
+                            <field name="chi_tiet_ids">
+                                <tree editable="bottom" decoration-success="ket_qua == 'khop'" 
+                                      decoration-warning="ket_qua == 'lech'" 
+                                      decoration-danger="ket_qua == 'thieu'">
+                                    <field name="tai_san_id" readonly="1"/>
+                                    <field name="ma_tai_san" readonly="1"/>
+                                    <field name="tinh_trang_so_sach" readonly="1"/>
+                                    <field name="vi_tri_so_sach" readonly="1"/>
+                                    <field name="co_thuc_te"/>
+                                    <field name="tinh_trang_thuc_te"/>
+                                    <field name="vi_tri_thuc_te"/>
+                                    <field name="ket_qua" readonly="1"/>
+                                    <field name="nguoi_kiem_ke_id"/>
+                                    <field name="ghi_chu_kiem_ke"/>
+                                    <button name="action_xac_nhan_khop" string="✓ Xác nhận khớp" type="object" class="btn-sm btn-success"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Kết luận" attrs="{'invisible': [('trang_thai', '!=', 'hoan_thanh')]}">
+                            <group>
+                                <field name="ket_luan" placeholder="Kết luận về đợt kiểm kê..."/>
+                                <field name="bao_cao_file" filename="ten_file"/>
+                                <field name="ten_file" invisible="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    
+                    <group>
+                        <field name="ghi_chu" placeholder="Ghi chú thêm..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Kiểm kê -->
+    <record id="view_kiem_ke_tree" model="ir.ui.view">
+        <field name="name">kiem_ke_tai_san.tree</field>
+        <field name="model">kiem_ke_tai_san</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách kiểm kê">
+                <field name="name"/>
+                <field name="tieu_de"/>
+                <field name="ngay_kiem_ke"/>
+                <field name="truong_doan_id"/>
+                <field name="tong_so_tai_san"/>
+                <field name="ty_le_khop" widget="percentage"/>
+                <field name="trang_thai" decoration-info="trang_thai == 'du_thao'" 
+                       decoration-warning="trang_thai == 'dang_kiem_ke'" 
+                       decoration-success="trang_thai == 'hoan_thanh'" 
+                       decoration-muted="trang_thai == 'huy'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Calendar View Kiểm kê -->
+    <record id="view_kiem_ke_calendar" model="ir.ui.view">
+        <field name="name">kiem_ke_tai_san.calendar</field>
+        <field name="model">kiem_ke_tai_san</field>
+        <field name="arch" type="xml">
+            <calendar string="Lịch kiểm kê" date_start="ngay_bat_dau" date_stop="ngay_ket_thuc" color="trang_thai">
+                <field name="tieu_de"/>
+                <field name="truong_doan_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Search View Kiểm kê -->
+    <record id="view_kiem_ke_search" model="ir.ui.view">
+        <field name="name">kiem_ke_tai_san.search</field>
+        <field name="model">kiem_ke_tai_san</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm kiểm kê">
+                <field name="name"/>
+                <field name="tieu_de"/>
+                <field name="truong_doan_id"/>
+                <filter string="Dự thảo" name="du_thao" domain="[('trang_thai', '=', 'du_thao')]"/>
+                <filter string="Đang kiểm kê" name="dang_kiem_ke" domain="[('trang_thai', '=', 'dang_kiem_ke')]"/>
+                <filter string="Hoàn thành" name="hoan_thanh" domain="[('trang_thai', '=', 'hoan_thanh')]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter string="Trưởng đoàn" name="group_truong_doan" context="{'group_by':'truong_doan_id'}"/>
+                    <filter string="Phòng ban" name="group_phong_ban" context="{'group_by':'phong_ban_id'}"/>
+                    <filter string="Trạng thái" name="group_trang_thai" context="{'group_by':'trang_thai'}"/>
+                    <filter string="Ngày kiểm kê" name="group_ngay" context="{'group_by':'ngay_kiem_ke'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Kiểm kê -->
+    <record id="action_kiem_ke" model="ir.actions.act_window">
+        <field name="name">Kiểm kê tài sản</field>
+        <field name="res_model">kiem_ke_tai_san</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="context">{'search_default_dang_kiem_ke': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo đợt kiểm kê mới
+            </p>
+            <p>
+                Quản lý kiểm kê tài sản định kỳ với đầy đủ thống kê và báo cáo.
+            </p>
+        </field>
+    </record>
+
+    <!-- Form View Chi tiết kiểm kê -->
+    <record id="view_chi_tiet_kiem_ke_form" model="ir.ui.view">
+        <field name="name">chi_tiet_kiem_ke.form</field>
+        <field name="model">chi_tiet_kiem_ke</field>
+        <field name="arch" type="xml">
+            <form string="Chi tiết kiểm kê">
+                <sheet>
+                    <group>
+                        <group string="Thông tin tài sản">
+                            <field name="tai_san_id" readonly="1"/>
+                            <field name="ma_tai_san" readonly="1"/>
+                            <field name="ten_tai_san" readonly="1"/>
+                        </group>
+                        <group string="Kiểm kê">
+                            <field name="nguoi_kiem_ke_id"/>
+                            <field name="ngay_kiem_ke"/>
+                            <field name="ket_qua" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <group string="So sánh">
+                        <group string="Theo sổ sách">
+                            <field name="gia_tri_so_sach" readonly="1"/>
+                            <field name="tinh_trang_so_sach" readonly="1"/>
+                            <field name="vi_tri_so_sach" readonly="1"/>
+                        </group>
+                        <group string="Thực tế">
+                            <field name="co_thuc_te"/>
+                            <field name="gia_tri_thuc_te"/>
+                            <field name="tinh_trang_thuc_te"/>
+                            <field name="vi_tri_thuc_te"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <field name="ghi_chu_kiem_ke" placeholder="Ghi chú về kết quả kiểm kê..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

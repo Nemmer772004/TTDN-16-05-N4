@@ -43,6 +43,7 @@
                                     </tree>
                                 </field>
                             </page>
+                            <!-- Page này đã bị loại bỏ vì chuyển sang dùng tai_san từ module quan_ly_tai_san
                             <page string="🖥️ Thiết bị trong phòng">
                                 <field name="thiet_bi_ids">
                                     <tree>
@@ -52,6 +53,7 @@
                                     </tree>
                                 </field>
                             </page>
+                            -->
                         </notebook>
                     </sheet>
                 </form>

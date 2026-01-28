@@ -24,7 +24,7 @@ class QuanLyPhongHop(models.Model):
     ], string="Trạng thái", compute="_compute_trang_thai", store=True)
 
     dat_phong_ids = fields.One2many("dat_phong", "phong_id", string="Lịch sử mượn phòng")
-    thiet_bi_ids = fields.One2many("thiet_bi", "phong_id", string="Thiết bị trong phòng")
+    # thiet_bi_ids = fields.One2many("thiet_bi", "phong_id", string="Thiết bị trong phòng")  # Đã chuyển sang dùng tai_san từ module quan_ly_tai_san
     # Chỉ hiển thị các trạng thái "Đã duyệt" và "Đang sử dụng"
     lich_dat_phong_ids = fields.One2many(
         "dat_phong", "phong_id",

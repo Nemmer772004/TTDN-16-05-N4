@@ -31,6 +31,7 @@
 
     <!-- Search View -->
     <record id="chuc_vu_search" model="ir.ui.view">
+        <field name="name">chuc_vu.search</field>
         <field name="model">chuc_vu</field>
         <field name="arch" type="xml">
             <search>

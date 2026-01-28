@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence cho mã tài sản -->
+    <record id="seq_tai_san" model="ir.sequence">
+        <field name="name">Mã tài sản</field>
+        <field name="code">tai_san.sequence</field>
+        <field name="prefix">TS</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <!-- Sequence cho mã kiểm kê -->
+    <record id="seq_kiem_ke" model="ir.sequence">
+        <field name="name">Mã kiểm kê</field>
+        <field name="code">kiem_ke_tai_san.sequence</field>
+        <field name="prefix">KK%(year)s</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

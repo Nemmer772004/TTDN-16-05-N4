@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Lịch sử sử dụng -->
+    <record id="view_lich_su_su_dung_form" model="ir.ui.view">
+        <field name="name">lich_su_su_dung_tai_san.form</field>
+        <field name="model">lich_su_su_dung_tai_san</field>
+        <field name="arch" type="xml">
+            <form string="Lịch sử sử dụng tài sản">
+                <header>
+                    <button name="action_tra_tai_san" string="Trả tài sản" type="object" 
+                            class="btn-primary" attrs="{'invisible': [('trang_thai', '=', 'da_tra')]}"/>
+                    <field name="trang_thai" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tai_san_id"/>
+                            <field name="nguoi_su_dung_id"/>
+                            <field name="phong_ban_id"/>
+                        </group>
+                        <group>
+                            <field name="ngay_bat_dau"/>
+                            <field name="ngay_ket_thuc"/>
+                            <field name="trang_thai"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="ghi_chu" placeholder="Ghi chú về việc sử dụng tài sản..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Lịch sử sử dụng -->
+    <record id="view_lich_su_su_dung_tree" model="ir.ui.view">
+        <field name="name">lich_su_su_dung_tai_san.tree</field>
+        <field name="model">lich_su_su_dung_tai_san</field>
+        <field name="arch" type="xml">
+            <tree string="Lịch sử sử dụng">
+                <field name="name"/>
+                <field name="tai_san_id"/>
+                <field name="nguoi_su_dung_id"/>
+                <field name="phong_ban_id"/>
+                <field name="ngay_bat_dau"/>
+                <field name="ngay_ket_thuc"/>
+                <field name="trang_thai" decoration-info="trang_thai == 'dang_su_dung'" 
+                       decoration-muted="trang_thai == 'da_tra'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View Lịch sử sử dụng -->
+    <record id="view_lich_su_su_dung_search" model="ir.ui.view">
+        <field name="name">lich_su_su_dung_tai_san.search</field>
+        <field name="model">lich_su_su_dung_tai_san</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm lịch sử">
+                <field name="tai_san_id"/>
+                <field name="nguoi_su_dung_id"/>
+                <field name="phong_ban_id"/>
+                <filter string="Đang sử dụng" name="dang_su_dung" domain="[('trang_thai', '=', 'dang_su_dung')]"/>
+                <filter string="Đã trả" name="da_tra" domain="[('trang_thai', '=', 'da_tra')]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter string="Tài sản" name="group_tai_san" context="{'group_by':'tai_san_id'}"/>
+                    <filter string="Người sử dụng" name="group_nguoi" context="{'group_by':'nguoi_su_dung_id'}"/>
+                    <filter string="Phòng ban" name="group_phong_ban" context="{'group_by':'phong_ban_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Lịch sử sử dụng -->
+    <record id="action_lich_su_su_dung" model="ir.actions.act_window">
+        <field name="name">Lịch sử sử dụng</field>
+        <field name="res_model">lich_su_su_dung_tai_san</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Chưa có lịch sử sử dụng
+            </p>
+            <p>
+                Nhấn <b>Tạo</b> để ghi nhận việc sử dụng tài sản.
+            </p>
+        </field>
+    </record>
+</odoo>
