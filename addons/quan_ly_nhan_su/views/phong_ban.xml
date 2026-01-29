@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_phong_ban_form" model="ir.ui.view">
+            <field name="name">phong_ban.form</field>
+            <field name="model">phong_ban</field>
+            <field name="arch" type="xml">
+                <form string="Phòng ban">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ten_don_vi" placeholder="Tên phòng ban..."/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="ma_don_vi"/>
+                            <field name="truong_don_vi_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_phong_ban_tree" model="ir.ui.view">
+            <field name="name">phong_ban.tree</field>
+            <field name="model">phong_ban</field>
+            <field name="arch" type="xml">
+                <tree string="Phòng ban">
+                    <field name="ma_don_vi"/>
+                    <field name="ten_don_vi"/>
+                    <field name="truong_don_vi_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_phong_ban_search" model="ir.ui.view">
+            <field name="name">phong_ban.search</field>
+            <field name="model">phong_ban</field>
+            <field name="arch" type="xml">
+                <search string="Tìm kiếm phòng ban">
+                    <field name="ma_don_vi"/>
+                    <field name="ten_don_vi"/>
+                    <field name="truong_don_vi_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Trưởng phòng" name="group_truong_phong" context="{'group_by':'truong_don_vi_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_phong_ban" model="ir.actions.act_window">
+            <field name="name">Phòng ban</field>
+            <field name="res_model">phong_ban</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_phong_ban_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tạo phòng ban mới
+                </p>
+                <p>
+                    Nhấn vào nút "Tạo" để thêm phòng ban mới.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_phong_ban"
+                  name="Phòng ban"
+                  parent="menu_danh_muc_chung"
+                  action="action_phong_ban"
+                  sequence="5"/>
+    </data>
+</odoo>

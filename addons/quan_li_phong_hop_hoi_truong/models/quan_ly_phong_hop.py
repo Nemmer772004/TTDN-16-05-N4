@@ -2,7 +2,7 @@ from odoo import models, fields, api
 
 class QuanLyPhongHop(models.Model):
     _name = "quan_ly_phong_hop"
-    _description = "Quản lý phòng họp, hội trường"
+    _description = "Quản lý phòng họp"
 
     name = fields.Char(string="Tên phòng họp", required=True)
     loai_phong = fields.Selection([
@@ -10,6 +10,12 @@ class QuanLyPhongHop(models.Model):
         ("Hội_trường", "Hội trường"),
     ], string="Loại phòng", required=True, default="Phòng_họp")
     suc_chua = fields.Integer(string="Sức chứa")
+    
+    # Thông tin bổ sung
+    hinh_anh = fields.Binary(string="Hình ảnh phòng", attachment=True)
+    mo_ta = fields.Text(string="Mô tả")
+    don_gia_gio = fields.Float(string="Đơn giá/giờ (VNĐ)", help="Giá thuê phòng theo giờ (nếu có)")
+    vi_tri = fields.Char(string="Vị trí", help="VD: Tầng 2, Tòa nhà A")
 
     trang_thai = fields.Selection([
         ("Trống", "Trống"),
@@ -18,7 +24,7 @@ class QuanLyPhongHop(models.Model):
     ], string="Trạng thái", compute="_compute_trang_thai", store=True)
 
     dat_phong_ids = fields.One2many("dat_phong", "phong_id", string="Lịch sử mượn phòng")
-    thiet_bi_ids = fields.One2many("thiet_bi", "phong_id", string="Thiết bị trong phòng")
+    # thiet_bi_ids = fields.One2many("thiet_bi", "phong_id", string="Thiết bị trong phòng")  # Đã chuyển sang dùng tai_san từ module quan_ly_tai_san
     # Chỉ hiển thị các trạng thái "Đã duyệt" và "Đang sử dụng"
     lich_dat_phong_ids = fields.One2many(
         "dat_phong", "phong_id",

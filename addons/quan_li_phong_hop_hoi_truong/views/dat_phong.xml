@@ -6,41 +6,118 @@
             <field name="model">dat_phong</field>
             <field name="arch" type="xml">
                 <form string="📋 Chi tiết Đăng Ký Mượn Phòng">
+                    <header>
+                        <!-- Thanh trạng thái -->
+                        <field name="trang_thai" widget="statusbar" statusbar_visible="chờ_duyệt,đã_duyệt,đang_sử_dụng,đã_trả"/>
+                        
+                        <!-- Các nút hành động -->
+                        <button name="xac_nhan_duyet_phong" string="✅ Duyệt phòng" type="object" 
+                                class="oe_highlight" attrs="{'invisible': [('trang_thai', '!=', 'chờ_duyệt')]}"/>
+                        <button name="huy_muon_phong" string="❌ Từ chối" type="object" 
+                                attrs="{'invisible': [('trang_thai', '!=', 'chờ_duyệt')]}"/>
+                        <button name="bat_dau_su_dung" string="🚀 Bắt đầu sử dụng" type="object" 
+                                class="oe_highlight" attrs="{'invisible': [('trang_thai', '!=', 'đã_duyệt')]}"/>
+                        <button name="tra_phong" string="� Trả phòng" type="object" 
+                                class="oe_highlight" attrs="{'invisible': [('trang_thai', '!=', 'đang_sử_dụng')]}"/>
+                    </header>
+                    
                     <sheet>
-                       
-                        <group col="2">
-                            <group>
-                                <separator string="🏷 Thông tin chung" colspan="2"/>
-                                <field name="phong_id"/>
-                                <field name="nguoi_muon_id"/>
-                                
+                        <!-- Thông tin tóm tắt ở đầu -->
+                        <div class="oe_title">
+                            <h1>
+                                <field name="phong_id" placeholder="Chọn phòng họp..." options="{'no_create': True}"/>
+                            </h1>
+                        </div>
+                        
+                        <group col="4">
+                            <!-- Cột trái: Thông tin người mượn -->
+                            <group string="👤 THÔNG TIN NGƯỜI MƯỢN">
+                                <field name="nguoi_muon_id" options="{'no_create': True}"/>
+                                <field name="ly_do" placeholder="VD: Họp team, Đào tạo, Sự kiện..."/>
+                            </group>
+                            
+                            <!-- Cột phải: Thông tin phòng -->
+                            <group string="🏢 THÔNG TIN PHÒNG HỌP">
+                                <field name="phong_vi_tri" string="📍 Vị trí"/>
+                                <field name="phong_suc_chua" string="👥 Sức chứa"/>
+                                <field name="phong_don_gia" string="💰 Đơn giá/giờ (VNĐ)"/>
+                                <field name="chi_phi" string="💵 Chi phí dự kiến (VNĐ)"/>
+                                <field name="thoi_gian_su_dung_gio" string="⏱️ Thời gian (giờ)"/>
                             </group>
                         </group>
 
-                        <group col="2">
-                            <separator string="📅 Thời gian Mượn Trả" colspan="2"/>
-                            <field name="thoi_gian_muon_du_kien" string="⏳ Mượn dự kiến"/>
-                         
-                            <field name="thoi_gian_tra_du_kien" string="📆 Trả dự kiến"/>
-                       
+                        <group col="4">
+                            <group string="📅 THỜI GIAN DỰ KIẾN">
+                                <field name="thoi_gian_muon_du_kien" string="⏰ Bắt đầu"/>
+                                <field name="thoi_gian_tra_du_kien" string="⏰ Kết thúc"/>
+                                <field name="la_dat_dinh_ky" string="🔄 Đặt định kỳ"/>
+                                <field name="tan_suat_lap" attrs="{'invisible': [('la_dat_dinh_ky', '=', False)]}"/>
+                            </group>
+                            
+                            <group string="� ĐÁNH GIÁ &amp; GHI CHÚ">
+                                <field name="danh_gia" widget="priority" 
+                                       attrs="{'invisible': [('trang_thai', '!=', 'đã_trả')]}"/>
+                                <field name="ghi_chu" placeholder="Ghi chú thêm về yêu cầu đặc biệt..."/>
+                            </group>
                         </group>
+
                         <notebook>
-                            <!-- Thêm tab hiển thị chi tiết sử dụng -->
-                            <page string="📊 Chi Tiết Sử Dụng">
-                                <field name="chi_tiet_su_dung_ids">
+                            <!-- Tab 1: Thiết bị kèm theo -->
+                            <page string="🔧 THIẾT BỊ/TÀI SẢN MƯỢN">
+                                <group>
+                                    <field name="thiet_bi_ids" widget="many2many_tags" 
+                                           domain="[('vi_tri', 'in', ['kho', 'dang_su_dung']), ('tinh_trang', 'not in', ['hong', 'da_thanh_ly', 'cho_thanh_ly'])]"
+                                           options="{'color_field': 'tinh_trang', 'no_create': True}"/>
+                                </group>
+                                
+                                <!-- Hiển thị chi tiết thiết bị/tài sản -->
+                                <group string="📋 Chi tiết tài sản mượn" col="1">
+                                    <field name="thiet_bi_ids" nolabel="1" mode="tree">
+                                        <tree>
+                                            <field name="ma_tai_san" string="🏷️ Mã tài sản"/>
+                                            <field name="name" string="� Tên tài sản"/>
+                                            <field name="loai_tai_san" string="� Loại"/>
+                                            <field name="ngay_mua" string="📅 Ngày mua"/>
+                                            <field name="gia_tri" string="� Giá trị (VNĐ)"/>
+                                            <field name="gia_tri_con_lai" string="� Giá trị còn lại (VNĐ)"/>
+                                            <field name="tinh_trang" string="📊 Tình trạng"
+                                                   decoration-success="tinh_trang=='dang_su_dung'"
+                                                   decoration-warning="tinh_trang=='bao_tri'"
+                                                   decoration-info="tinh_trang=='cho_muon'"
+                                                   decoration-danger="tinh_trang=='hong'"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            
+                            <!-- Tab 2: Lịch sử sử dụng -->
+                            <page string="📊 LỊCH SỬ SỬ DỤNG">
+                                <field name="chi_tiet_su_dung_ids" nolabel="1">
                                     <tree>
                                         <field name="nguoi_muon_id" string="👤 Người mượn"/>
+                                        <field name="phong_id" string="🏢 Phòng họp"/>
                                         <field name="thoi_gian_muon_thuc_te" string="⏰ Mượn thực tế"/>
-                                        <field name="thoi_gian_tra_thuc_te" string="⏱ Trả thực tế"/>
-                                        <field name="trang_thai" string="📌 Trạng thái"
-                                               decoration-muted="trang_thai=='đã_trả'"
-                                               decoration-danger="trang_thai=='đang_sử_dụng'"
-                                               decoration-success="trang_thai=='đã_duyệt'"/>
+                                        <field name="thoi_gian_tra_thuc_te" string="⏱️ Trả thực tế"/>
+                                        <field name="thoi_gian_su_dung" string="⏲️ Thời gian sử dụng"/>
                                     </tree>
                                 </field>
                             </page>
+                            
+                            <!-- Tab 3: Hình ảnh -->
+                            <page string="📷 HÌNH ẢNH" attrs="{'invisible': [('trang_thai', 'in', ['chờ_duyệt', 'đã_hủy'])]}">
+                                <group>
+                                    <field name="hinh_anh" widget="image" class="oe_avatar"/>
+                                </group>
+                            </page>
                         </notebook>
                     </sheet>
+                    
+                    <!-- Chatter - Theo dõi & Ghi chú -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>

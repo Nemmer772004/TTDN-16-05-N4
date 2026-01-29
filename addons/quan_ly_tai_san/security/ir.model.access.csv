@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tai_san_user,access.tai_san.user,model_tai_san,base.group_user,1,1,1,0
+access_tai_san_manager,access.tai_san.manager,model_tai_san,base.group_system,1,1,1,1
+access_lich_su_su_dung_user,access.lich_su_su_dung.user,model_lich_su_su_dung_tai_san,base.group_user,1,1,1,0
+access_lich_su_su_dung_manager,access.lich_su_su_dung.manager,model_lich_su_su_dung_tai_san,base.group_system,1,1,1,1
+access_bao_tri_user,access.bao_tri.user,model_bao_tri_tai_san,base.group_user,1,1,1,0
+access_bao_tri_manager,access.bao_tri.manager,model_bao_tri_tai_san,base.group_system,1,1,1,1
+access_chuyen_giao_user,access.chuyen_giao.user,model_chuyen_giao_tai_san,base.group_user,1,0,1,0
+access_chuyen_giao_manager,access.chuyen_giao.manager,model_chuyen_giao_tai_san,base.group_system,1,1,1,1
+access_kiem_ke_user,access.kiem_ke.user,model_kiem_ke_tai_san,base.group_user,1,0,0,0
+access_kiem_ke_manager,access.kiem_ke.manager,model_kiem_ke_tai_san,base.group_system,1,1,1,1
+access_chi_tiet_kiem_ke_user,access.chi_tiet_kiem_ke.user,model_chi_tiet_kiem_ke,base.group_user,1,1,0,0
+access_chi_tiet_kiem_ke_manager,access.chi_tiet_kiem_ke.manager,model_chi_tiet_kiem_ke,base.group_system,1,1,1,1

@@ -1,16 +1,16 @@
 <odoo>
     <data>
         <menuitem id="menu_root"
-                  name="Quản lí phòng họp, hội trường"
+                  name="Quản lý phòng họp"
+                  groups="group_phong_hop_nhan_vien,group_phong_hop_quan_ly,group_phong_hop_quan_tri"
                   sequence="0"/>
 
-        <menuitem name="Danh sách phòng họp, hội trường" 
+        <menuitem name="Danh sách phòng họp" 
                   id="menu_quan_ly_phong_hop" 
                   parent="menu_root" 
                   sequence="1"
                   action="action_quan_ly_phong_hop"/>
-        <!-- Menu - Quản lý thiết bị -->
-        <menuitem id="menu_thiet_bi" name="📌 Quản lý Thiết Bị" action="action_thiet_bi"/>
+
         <menuitem name="Đăng ký mượn phòng" 
                   id="menu_dat_phong" 
                   parent="menu_root" 
@@ -51,5 +51,15 @@
                   name="📊 DashBoard"
                   parent="menu_root"
                   action="action_dat_phong_dashboard"/>
+
+        <menuitem id="menu_bao_cao"
+                  name="📈 Báo cáo &amp; Thống kê"
+                  parent="menu_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_bao_cao_su_dung_phong"
+                  name="Báo cáo sử dụng phòng"
+                  parent="menu_bao_cao"
+                  action="action_bao_cao_su_dung_phong"/>
     </data>
 </odoo>

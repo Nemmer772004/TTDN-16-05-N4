@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Search View - Filters & Comparisons -->
+        <record id="view_bao_cao_su_dung_phong_search" model="ir.ui.view">
+            <field name="name">bao_cao.su.dung.phong.search</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <search string="Tìm kiếm báo cáo">
+                    <field name="phong_id"/>
+                    <field name="nguoi_muon_id"/>
+                    <field name="ngay"/>
+                    
+                    <!-- Filters theo thời gian -->
+                    <filter string="Tháng này" name="filter_thang_nay" 
+                        domain="[('ngay', '&gt;=', (context_today() - relativedelta(day=1)).strftime('%%Y-%%m-%%d')), 
+                                ('ngay', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1)).strftime('%%Y-%%m-%%d'))]"/>
+                    
+                    <filter string="Tháng trước" name="filter_thang_truoc" 
+                        domain="[('ngay', '&gt;=', (context_today() - relativedelta(months=1, day=1)).strftime('%%Y-%%m-%%d')), 
+                                ('ngay', '&lt;=', (context_today() - relativedelta(day=1, days=1)).strftime('%%Y-%%m-%%d'))]"/>
+                    
+                    <filter string="Quý này" name="filter_quy_nay" 
+                        domain="[('ngay', '&gt;=', (context_today() - relativedelta(day=1, month=(((context_today().month-1)//3)*3)+1)).strftime('%%Y-%%m-%%d')), 
+                                ('ngay', '&lt;=', context_today().strftime('%%Y-%%m-%%d'))]"/>
+                    
+                    <filter string="Năm nay" name="filter_nam_nay" 
+                        domain="[('ngay', '&gt;=', context_today().strftime('%%Y-01-01')), 
+                                ('ngay', '&lt;=', context_today().strftime('%%Y-12-31'))]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Filters theo đánh giá -->
+                    <filter string="Đánh giá tốt (≥4)" name="filter_danh_gia_tot" 
+                        domain="[('trung_binh_danh_gia', '&gt;=', 4)]"/>
+                    
+                    <filter string="Đánh giá TB (2-4)" name="filter_danh_gia_tb" 
+                        domain="[('trung_binh_danh_gia', '&gt;=', 2), ('trung_binh_danh_gia', '&lt;', 4)]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Group by -->
+                    <group expand="1" string="Nhóm theo">
+                        <filter string="Phòng" name="group_phong" context="{'group_by': 'phong_id'}"/>
+                        <filter string="Người mượn" name="group_nguoi_muon" context="{'group_by': 'nguoi_muon_id'}"/>
+                        <separator/>
+                        <filter string="Ngày" name="group_ngay" context="{'group_by': 'ngay:day'}"/>
+                        <filter string="Tuần" name="group_tuan" context="{'group_by': 'ngay:week'}"/>
+                        <filter string="Tháng" name="group_thang" context="{'group_by': 'ngay:month'}"/>
+                        <filter string="Quý" name="group_quy" context="{'group_by': 'ngay:quarter'}"/>
+                        <filter string="Năm" name="group_nam" context="{'group_by': 'ngay:year'}"/>
+                    </group>
+                    
+                    <!-- Comparison -->
+                    <group expand="0" string="So sánh">
+                        <filter string="So sánh: Tháng trước" name="comparison_thang_truoc" 
+                            context="{'comparison_menu': True, 'comparison_range': 'previous_month'}"/>
+                        <filter string="So sánh: Cùng kỳ năm trước" name="comparison_nam_truoc" 
+                            context="{'comparison_menu': True, 'comparison_range': 'previous_year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Pivot View -->
+        <record id="view_bao_cao_su_dung_phong_pivot" model="ir.ui.view">
+            <field name="name">bao_cao.su.dung.phong.pivot</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <pivot string="Báo cáo sử dụng phòng" sample="1">
+                    <field name="phong_id" type="row"/>
+                    <field name="ngay" interval="month" type="col"/>
+                    <field name="so_lan_su_dung" type="measure"/>
+                    <field name="tong_thoi_gian_gio" type="measure"/>
+                    <field name="tong_chi_phi" type="measure"/>
+                    <field name="trung_binh_danh_gia" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Graph View - LINE Chart for Time Series -->
+        <record id="view_bao_cao_su_dung_phong_graph" model="ir.ui.view">
+            <field name="name">bao.cao.su.dung.phong.graph</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <graph string="📈 Xu hướng sử dụng phòng theo thời gian" type="line" sample="1" order="asc">
+                    <field name="ngay" interval="day"/>
+                    <field name="phong_id" type="row"/>
+                    <field name="tong_thoi_gian_gio" type="measure"/>
+                    <field name="so_lan_su_dung" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Graph View 2 - Bar Chart for Comparison -->
+        <record id="view_bao_cao_su_dung_phong_graph_bar" model="ir.ui.view">
+            <field name="name">bao.cao.su.dung.phong.graph.bar</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <graph string="📊 So sánh giữa các phòng" type="bar" stacked="False" sample="1">
+                    <field name="phong_id"/>
+                    <field name="tong_thoi_gian_gio" type="measure"/>
+                    <field name="tong_chi_phi" type="measure"/>
+                    <field name="so_lan_su_dung" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Graph View 3 - LINE Chart Monthly Trend (Easier to read) -->
+        <record id="view_bao_cao_su_dung_phong_graph_monthly" model="ir.ui.view">
+            <field name="name">bao.cao.su.dung.phong.graph.monthly</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <graph string="📈 Xu hướng theo tháng (nhiều màu)" type="line" sample="1" order="asc">
+                    <field name="ngay" interval="month"/>
+                    <field name="phong_id" type="row"/>
+                    <field name="tong_thoi_gian_gio" type="measure"/>
+                    <field name="tong_chi_phi" type="measure"/>
+                    <field name="so_lan_su_dung" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_bao_cao_su_dung_phong_tree" model="ir.ui.view">
+            <field name="name">bao_cao.su_dung_phong.tree</field>
+            <field name="model">bao_cao_su_dung_phong</field>
+            <field name="arch" type="xml">
+                <tree string="Báo cáo sử dụng phòng" sample="1" 
+                      decoration-success="trung_binh_danh_gia &gt;= 4"
+                      decoration-warning="trung_binh_danh_gia &gt;= 2 and trung_binh_danh_gia &lt; 4"
+                      decoration-danger="trung_binh_danh_gia &lt; 2">
+                    <field name="ngay"/>
+                    <field name="phong_id"/>
+                    <field name="nguoi_muon_id"/>
+                    <field name="so_lan_su_dung" sum="Tổng"/>
+                    <field name="tong_thoi_gian_gio" sum="Tổng giờ" widget="float_time"/>
+                    <field name="tong_chi_phi" sum="Tổng chi phí" widget="monetary"/>
+                    <field name="trung_binh_danh_gia" avg="Trung bình" widget="progressbar"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_bao_cao_su_dung_phong" model="ir.actions.act_window">
+            <field name="name">📈 Báo cáo &amp; Phân tích sử dụng phòng</field>
+            <field name="res_model">bao_cao_su_dung_phong</field>
+            <field name="view_mode">graph,pivot,tree</field>
+            <field name="context">{
+                'search_default_filter_thang_nay': 1,
+                'search_default_group_ngay': 1,
+                'search_default_group_phong': 1
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    📊 Chưa có dữ liệu báo cáo
+                </p>
+                <p>
+                    Báo cáo sẽ hiển thị sau khi có phòng được trả.<br/>
+                    <b>Tính năng:</b><br/>
+                    • Biểu đồ đường: Theo dõi xu hướng theo thời gian<br/>
+                    • Biểu đồ cột: So sánh giữa các phòng<br/>
+                    • Bảng tổng hợp: Xem chi tiết từng khoản<br/>
+                    • Filters: Lọc theo thời gian, đánh giá<br/>
+                    • So sánh: Với kỳ trước, năm trước
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

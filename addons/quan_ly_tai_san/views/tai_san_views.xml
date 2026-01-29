@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Tài sản -->
+    <record id="view_tai_san_form" model="ir.ui.view">
+        <field name="name">tai_san.form</field>
+        <field name="model">tai_san</field>
+        <field name="arch" type="xml">
+            <form string="Tài sản">
+                <header>
+                    <button name="action_bao_tri" string="Tạo phiếu bảo trì" type="object" class="btn-primary"/>
+                    <button name="action_chuyen_giao" string="Chuyển giao tài sản" type="object" class="btn-primary"/>
+                    <field name="tinh_trang" widget="statusbar" statusbar_visible="moi,tot,can_bao_tri,da_thanh_ly"/>
+                </header>
+                <sheet>
+                    <field name="hinh_anh" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ma_tai_san" readonly="1"/>
+                        </h1>
+                        <h2>
+                            <field name="name" placeholder="Tên tài sản..."/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Thông tin cơ bản">
+                            <field name="loai_tai_san"/>
+                            <field name="vi_tri"/>
+                            <field name="tinh_trang"/>
+                        </group>
+                        <group string="Thông tin tài chính">
+                            <field name="gia_tri"/>
+                            <field name="ngay_mua"/>
+                            <field name="thoi_gian_khau_hao"/>
+                            <field name="gia_tri_khau_hao_hang_thang" readonly="1"/>
+                            <field name="gia_tri_con_lai" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Quản lý">
+                            <field name="phong_ban_id"/>
+                            <field name="nguoi_quan_ly_id"/>
+                            <field name="phong_hop_id"/>
+                            <field name="nguoi_dang_su_dung" readonly="1"/>
+                        </group>
+                        <group string="Thống kê bảo trì">
+                            <field name="so_lan_bao_tri" readonly="1"/>
+                            <field name="tong_chi_phi_bao_tri" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="mo_ta" placeholder="Mô tả chi tiết tài sản..."/>
+                        <field name="ghi_chu" placeholder="Ghi chú..."/>
+                    </group>
+                    <notebook>
+                        <page string="Lịch sử sử dụng">
+                            <field name="lich_su_su_dung_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="nguoi_su_dung_id"/>
+                                    <field name="phong_ban_id"/>
+                                    <field name="ngay_bat_dau"/>
+                                    <field name="ngay_ket_thuc"/>
+                                    <field name="trang_thai"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Lịch sử bảo trì">
+                            <field name="lich_su_bao_tri_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="loai_bao_tri"/>
+                                    <field name="ngay_bao_tri"/>
+                                    <field name="nguoi_thuc_hien"/>
+                                    <field name="chi_phi"/>
+                                    <field name="trang_thai"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Lịch sử chuyển giao">
+                            <field name="lich_su_chuyen_giao_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="loai_chuyen_giao"/>
+                                    <field name="ngay_chuyen_giao"/>
+                                    <field name="trang_thai"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Tài sản -->
+    <record id="view_tai_san_tree" model="ir.ui.view">
+        <field name="name">tai_san.tree</field>
+        <field name="model">tai_san</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách tài sản">
+                <field name="ma_tai_san"/>
+                <field name="name"/>
+                <field name="loai_tai_san"/>
+                <field name="gia_tri"/>
+                <field name="gia_tri_con_lai"/>
+                <field name="phong_ban_id"/>
+                <field name="nguoi_quan_ly_id"/>
+                <field name="tinh_trang" decoration-success="tinh_trang == 'tot'" 
+                       decoration-warning="tinh_trang == 'can_bao_tri'" 
+                       decoration-danger="tinh_trang == 'hong'"/>
+                <field name="vi_tri"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View Tài sản -->
+    <record id="view_tai_san_search" model="ir.ui.view">
+        <field name="name">tai_san.search</field>
+        <field name="model">tai_san</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm tài sản">
+                <field name="name"/>
+                <field name="ma_tai_san"/>
+                <field name="loai_tai_san"/>
+                <field name="phong_ban_id"/>
+                <field name="nguoi_quan_ly_id"/>
+                <filter string="Đang sử dụng" name="dang_su_dung" domain="[('vi_tri', '=', 'dang_su_dung')]"/>
+                <filter string="Trong kho" name="trong_kho" domain="[('vi_tri', '=', 'kho')]"/>
+                <filter string="Cần bảo trì" name="can_bao_tri" domain="[('tinh_trang', '=', 'can_bao_tri')]"/>
+                <filter string="Hỏng" name="hong" domain="[('tinh_trang', '=', 'hong')]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter string="Loại tài sản" name="group_loai" context="{'group_by':'loai_tai_san'}"/>
+                    <filter string="Phòng ban" name="group_phong_ban" context="{'group_by':'phong_ban_id'}"/>
+                    <filter string="Tình trạng" name="group_tinh_trang" context="{'group_by':'tinh_trang'}"/>
+                    <filter string="Vị trí" name="group_vi_tri" context="{'group_by':'vi_tri'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Kanban View Tài sản -->
+    <record id="view_tai_san_kanban" model="ir.ui.view">
+        <field name="name">tai_san.kanban</field>
+        <field name="model">tai_san</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="ma_tai_san"/>
+                <field name="name"/>
+                <field name="loai_tai_san"/>
+                <field name="tinh_trang"/>
+                <field name="gia_tri_con_lai"/>
+                <field name="hinh_anh"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('tai_san', 'hinh_anh', record.id.raw_value)" alt="Tài sản"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="ma_tai_san"/>
+                                </strong>
+                                <div>
+                                    <field name="name"/>
+                                </div>
+                                <div>
+                                    Giá trị: <field name="gia_tri_con_lai"/> VNĐ
+                                </div>
+                                <div>
+                                    <span class="badge badge-pill" t-att-class="record.tinh_trang.raw_value == 'tot' ? 'badge-success' : record.tinh_trang.raw_value == 'can_bao_tri' ? 'badge-warning' : 'badge-danger'">
+                                        <field name="tinh_trang"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action Tài sản -->
+    <record id="action_tai_san" model="ir.actions.act_window">
+        <field name="name">Tài sản</field>
+        <field name="res_model">tai_san</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo tài sản mới
+            </p>
+            <p>
+                Quản lý tài sản, thiết bị của trường với đầy đủ thông tin về giá trị, khấu hao, bảo trì và chuyển giao.
+            </p>
+        </field>
+    </record>
+</odoo>

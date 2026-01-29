@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence for Equipment Borrowing -->
+        <record id="seq_equipment_borrowing" model="ir.sequence">
+            <field name="name">Equipment Borrowing</field>
+            <field name="code">equipment.borrowing</field>
+            <field name="prefix">EB</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequence for Cham Cong -->
+        <record id="seq_cham_cong" model="ir.sequence">
+            <field name="name">Chấm công</field>
+            <field name="code">cham_cong</field>
+            <field name="prefix">CC</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequence for Don Nghi Phep -->
+        <record id="seq_don_nghi_phep" model="ir.sequence">
+            <field name="name">Đơn nghỉ phép</field>
+            <field name="code">don_nghi_phep</field>
+            <field name="prefix">DNP</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>
+

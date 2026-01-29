@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Thông báo khi yêu cầu được duyệt -->
+        <record id="action_thong_bao_duyet_phong" model="ir.actions.server">
+            <field name="name">Thông báo: Yêu cầu được duyệt</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="state">code</field>
+            <field name="code">
+# Gửi thông báo cho người mượn
+for record in records:
+    if record.nguoi_muon_id and record.nguoi_muon_id.user_id:
+        record.message_post(
+            body=f"""
+            &lt;p&gt;&lt;strong&gt;✅ Yêu cầu mượn phòng đã được duyệt!&lt;/strong&gt;&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Phòng: {record.phong_id.name}&lt;/li&gt;
+                &lt;li&gt;Thời gian: {record.thoi_gian_muon_du_kien} - {record.thoi_gian_tra_du_kien}&lt;/li&gt;
+                &lt;li&gt;Lý do: {record.ly_do or 'Không có'}&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;Vui lòng đến đúng giờ và nhớ trả phòng sau khi sử dụng.&lt;/p&gt;
+            """,
+            subject=f"Yêu cầu mượn phòng {record.phong_id.name} đã được duyệt",
+            partner_ids=[record.nguoi_muon_id.user_id.partner_id.id],
+            message_type='notification',
+        )
+            </field>
+        </record>
+
+        <record id="base_action_rule_duyet_phong" model="base.automation">
+            <field name="name">Thông báo khi duyệt phòng</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="trigger">on_write</field>
+            <field name="filter_domain">[('trang_thai', '=', 'đã_duyệt')]</field>
+            <field name="action_server_id" ref="action_thong_bao_duyet_phong"/>
+        </record>
+
+        <!-- Thông báo khi yêu cầu bị hủy -->
+        <record id="action_thong_bao_huy_phong" model="ir.actions.server">
+            <field name="name">Thông báo: Yêu cầu bị hủy</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="state">code</field>
+            <field name="code">
+for record in records:
+    if record.nguoi_muon_id and record.nguoi_muon_id.user_id:
+        record.message_post(
+            body=f"""
+            &lt;p&gt;&lt;strong&gt;❌ Yêu cầu mượn phòng đã bị hủy&lt;/strong&gt;&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Phòng: {record.phong_id.name}&lt;/li&gt;
+                &lt;li&gt;Thời gian: {record.thoi_gian_muon_du_kien} - {record.thoi_gian_tra_du_kien}&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;Vui lòng liên hệ quản lý để biết thêm chi tiết hoặc đăng ký lại.&lt;/p&gt;
+            """,
+            subject=f"Yêu cầu mượn phòng {record.phong_id.name} bị hủy",
+            partner_ids=[record.nguoi_muon_id.user_id.partner_id.id],
+            message_type='notification',
+        )
+            </field>
+        </record>
+
+        <record id="base_action_rule_huy_phong" model="base.automation">
+            <field name="name">Thông báo khi hủy yêu cầu</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="trigger">on_write</field>
+            <field name="filter_domain">[('trang_thai', '=', 'đã_hủy')]</field>
+            <field name="action_server_id" ref="action_thong_bao_huy_phong"/>
+        </record>
+
+        <!-- Nhắc nhở trước 15 phút -->
+        <record id="action_nhac_truoc_hop" model="ir.actions.server">
+            <field name="name">Nhắc nhở trước giờ họp</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="state">code</field>
+            <field name="code">
+from datetime import datetime, timedelta
+
+now = datetime.now()
+time_15min = now + timedelta(minutes=15)
+
+# Tìm các cuộc họp sắp diễn ra trong 15 phút
+dat_phong_sap_toi = env['dat_phong'].search([
+    ('trang_thai', '=', 'đã_duyệt'),
+    ('thoi_gian_muon_du_kien', '&gt;=', now),
+    ('thoi_gian_muon_du_kien', '&lt;=', time_15min),
+])
+
+for record in dat_phong_sap_toi:
+    if record.nguoi_muon_id and record.nguoi_muon_id.user_id:
+        record.message_post(
+            body=f"""
+            &lt;p&gt;&lt;strong&gt;⏰ Nhắc nhở: Cuộc họp sắp bắt đầu!&lt;/strong&gt;&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Phòng: {record.phong_id.name}&lt;/li&gt;
+                &lt;li&gt;Thời gian bắt đầu: {record.thoi_gian_muon_du_kien}&lt;/li&gt;
+                &lt;li&gt;Lý do: {record.ly_do or 'Không có'}&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;Vui lòng chuẩn bị và đến phòng họp.&lt;/p&gt;
+            """,
+            subject=f"Nhắc nhở: Cuộc họp tại {record.phong_id.name} sau 15 phút",
+            partner_ids=[record.nguoi_muon_id.user_id.partner_id.id],
+            message_type='notification',
+        )
+            </field>
+        </record>
+
+        <record id="ir_cron_nhac_truoc_hop" model="ir.cron">
+            <field name="name">Nhắc nhở trước giờ họp (15 phút)</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="state">code</field>
+            <field name="code">model.browse().action_nhac_truoc_hop()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="ir_actions_server_id" ref="action_nhac_truoc_hop"/>
+        </record>
+
+        <!-- Nhắc quá giờ trả phòng -->
+        <record id="action_nhac_qua_gio_tra" model="ir.actions.server">
+            <field name="name">Nhắc nhở quá giờ trả phòng</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="state">code</field>
+            <field name="code">
+from datetime import datetime
+
+now = datetime.now()
+
+# Tìm các phòng đang sử dụng và quá giờ trả
+phong_qua_gio = env['dat_phong'].search([
+    ('trang_thai', '=', 'đang_sử_dụng'),
+    ('thoi_gian_tra_du_kien', '&lt;', now),
+])
+
+for record in phong_qua_gio:
+    if record.nguoi_muon_id and record.nguoi_muon_id.user_id:
+        record.message_post(
+            body=f"""
+            &lt;p&gt;&lt;strong&gt;⚠️ Cảnh báo: Đã quá giờ trả phòng!&lt;/strong&gt;&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Phòng: {record.phong_id.name}&lt;/li&gt;
+                &lt;li&gt;Giờ trả dự kiến: {record.thoi_gian_tra_du_kien}&lt;/li&gt;
+                &lt;li&gt;Đã quá giờ: {now - record.thoi_gian_tra_du_kien}&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;Vui lòng trả phòng ngay để người khác có thể sử dụng!&lt;/p&gt;
+            """,
+            subject=f"⚠️ Quá giờ trả phòng {record.phong_id.name}",
+            partner_ids=[record.nguoi_muon_id.user_id.partner_id.id],
+            message_type='notification',
+        )
+            </field>
+        </record>
+
+        <record id="ir_cron_nhac_qua_gio_tra" model="ir.cron">
+            <field name="name">Nhắc nhở quá giờ trả phòng</field>
+            <field name="model_id" ref="model_dat_phong"/>
+            <field name="state">code</field>
+            <field name="code">model.browse().action_nhac_qua_gio_tra()</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="ir_actions_server_id" ref="action_nhac_qua_gio_tra"/>
+        </record>
+    </data>
+</odoo>

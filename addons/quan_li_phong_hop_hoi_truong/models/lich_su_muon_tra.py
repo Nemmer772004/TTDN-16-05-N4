@@ -10,21 +10,14 @@ class LichSuMuonTra(models.Model):
     phong_id = fields.Many2one("quan_ly_phong_hop", string="🏢 Phòng", required=True)    
     tong_thoi_gian_su_dung = fields.Char(string="⏳ Tổng thời gian sử dụng", compute="_compute_tong_thoi_gian", store=True)
 
-    chi_tiet_su_dung_ids = fields.One2many("dat_phong", "phong_id", string="👥 Chi tiết sử dụng", domain=[("trang_thai", "=", "đã_trả")])
+    # Sửa lại: Sử dụng model trung gian thay vì quan hệ sai qua phong_id
+    chi_tiet_su_dung_ids = fields.One2many("chi_tiet_su_dung_phong", "lich_su_id", string="👥 Chi tiết sử dụng")
 
-    @api.depends("chi_tiet_su_dung_ids.thoi_gian_muon_thuc_te", "chi_tiet_su_dung_ids.thoi_gian_tra_thuc_te")
+    @api.depends("chi_tiet_su_dung_ids.thoi_gian_su_dung")
     def _compute_tong_thoi_gian(self):
         """ Tính tổng thời gian sử dụng phòng theo giờ:phút:giây """
         for record in self:
-            total_seconds = 0
-            for usage in record.chi_tiet_su_dung_ids:
-                if usage.thoi_gian_muon_thuc_te and usage.thoi_gian_tra_thuc_te:
-                    muon_date = usage.thoi_gian_muon_thuc_te.date()
-                    tra_date = usage.thoi_gian_tra_thuc_te.date()
-
-                    if muon_date == record.ngay_su_dung or tra_date == record.ngay_su_dung:
-                        delta = usage.thoi_gian_tra_thuc_te - usage.thoi_gian_muon_thuc_te
-                        total_seconds += delta.total_seconds()
+            total_seconds = sum(record.chi_tiet_su_dung_ids.mapped('thoi_gian_su_dung_seconds'))
             
             # Chuyển đổi từ giây thành giờ:phút:giây
             hours, remainder = divmod(total_seconds, 3600)
@@ -33,27 +26,41 @@ class LichSuMuonTra(models.Model):
 
     @api.model
     def update_lich_su_muon_tra(self):
-        """ Cập nhật dữ liệu lịch sử mượn trả mỗi khi có phòng được trả """
-        today = fields.Date.today()
-        dat_phong_records = self.env["dat_phong"].search([("trang_thai", "=", "đã_trả"), ("thoi_gian_tra_thuc_te", "!=", False)])
+        """ 
+        Cập nhật dữ liệu lịch sử mượn trả (Legacy method - giữ lại cho tương thích)
+        Lưu ý: Giờ đã tự động cập nhật khi trả phòng, method này chỉ dùng để sync lại dữ liệu cũ
+        """
+        from datetime import timedelta
+        dat_phong_records = self.env["dat_phong"].search([
+            ("trang_thai", "=", "đã_trả"), 
+            ("thoi_gian_tra_thuc_te", "!=", False)
+        ])
 
-        # Tạo danh sách chứa các bản ghi lịch sử theo ngày và phòng
-        data_to_create = {}
-
+        # Xóa các chi tiết cũ
+        self.env["chi_tiet_su_dung_phong"].search([]).unlink()
+        
+        # Tạo lại từ đầu
         for record in dat_phong_records:
+            if not record.thoi_gian_muon_thuc_te:
+                continue
+                
             ngay_muon = record.thoi_gian_muon_thuc_te.date()
             ngay_tra = record.thoi_gian_tra_thuc_te.date()
 
-            for date in (ngay_muon + timedelta(days=n) for n in range((ngay_tra - ngay_muon).days + 1)):
-                key = (date, record.phong_id.id)
+            for single_date in (ngay_muon + timedelta(days=n) for n in range((ngay_tra - ngay_muon).days + 1)):
+                lich_su = self.search([
+                    ("ngay_su_dung", "=", single_date),
+                    ("phong_id", "=", record.phong_id.id)
+                ], limit=1)
                 
-                if key not in data_to_create:
-                    data_to_create[key] = {
-                        "ngay_su_dung": date,
+                if not lich_su:
+                    lich_su = self.create({
+                        "ngay_su_dung": single_date,
                         "phong_id": record.phong_id.id,
-                    }
-        
-        # Xóa lịch sử cũ và cập nhật mới
-        self.env["lich_su_muon_tra"].search([]).unlink()
-        for data in data_to_create.values():
-            self.create(data)
+                    })
+                
+                self.env["chi_tiet_su_dung_phong"].create({
+                    "lich_su_id": lich_su.id,
+                    "dat_phong_id": record.id,
+                })
+

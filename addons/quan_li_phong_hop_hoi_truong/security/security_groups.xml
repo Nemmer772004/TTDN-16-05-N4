@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Category cho module quản lý phòng họp -->
+        <record id="module_category_phong_hop" model="ir.module.category">
+            <field name="name">Quản lý phòng họp</field>
+            <field name="description">Phân quyền cho module quản lý phòng họp</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- Nhóm 1: Nhân viên - Chỉ đăng ký mượn phòng -->
+        <record id="group_phong_hop_nhan_vien" model="res.groups">
+            <field name="name">Nhân viên</field>
+            <field name="category_id" ref="module_category_phong_hop"/>
+            <field name="comment">Nhân viên có thể đăng ký mượn phòng, xem lịch phòng họp</field>
+        </record>
+
+        <!-- Nhóm 2: Quản lý phòng họp - Duyệt yêu cầu, quản lý thiết bị -->
+        <record id="group_phong_hop_quan_ly" model="res.groups">
+            <field name="name">Quản lý phòng họp</field>
+            <field name="category_id" ref="module_category_phong_hop"/>
+            <field name="implied_ids" eval="[(4, ref('group_phong_hop_nhan_vien'))]"/>
+            <field name="comment">Quản lý có thể duyệt/hủy yêu cầu, quản lý thiết bị, xem báo cáo</field>
+        </record>
+
+        <!-- Nhóm 3: Quản trị viên - Toàn quyền -->
+        <record id="group_phong_hop_quan_tri" model="res.groups">
+            <field name="name">Quản trị viên</field>
+            <field name="category_id" ref="module_category_phong_hop"/>
+            <field name="implied_ids" eval="[(4, ref('group_phong_hop_quan_ly'))]"/>
+            <field name="comment">Quản trị viên có toàn quyền: thêm/xóa/sửa phòng họp, cấu hình hệ thống</field>
+        </record>
+    </data>
+</odoo>
