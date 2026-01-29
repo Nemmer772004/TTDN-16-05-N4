@@ -532,12 +532,26 @@ xmlrpc_port = 8070
 
 ## 📚 12. Tài liệu tham khảo
 
+### 📖 Tài liệu chính thức
 - [Odoo Official Documentation](https://www.odoo.com/documentation/16.0/)
 - [Odoo HR Module Guide](https://www.odoo.com/app/employees)
 - [Odoo Asset Management](https://www.odoo.com/app/accounting)
 - [Python 3.10 Documentation](https://docs.python.org/3.10/)
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 - [Docker Documentation](https://docs.docker.com/)
+
+### 🔗 Nguồn tham khảo và kế thừa
+**Dự án được phát triển dựa trên:**
+- [TTDN-15-05-N8 - Nhóm 8](https://github.com/linhdang2k03/TTDN-15-05-N8) - Dự án gốc được kế thừa và phát triển thêm
+- Repository gốc: `gitlab.com/anhlta/fit_dnu_cssv` - Giảng viên Lê Tuấn Anh
+
+**Lịch sử phát triển:**
+- **2024**: Dự án khởi tạo bởi Nhóm 8 (TTDN-15-05-N8)
+- **2026**: Kế thừa và phát triển bởi Nhóm 4 (TTDN-16-05-N4)
+  - Cải tiến giao diện và trải nghiệm người dùng
+  - Tối ưu hóa hiệu suất hệ thống
+  - Bổ sung tính năng mới cho module Quản lý Phòng họp
+  - Nâng cấp module Quản lý Tài sản và Nhân sự
 
 ---
 
@@ -573,6 +587,10 @@ Xin cảm ơn:
 - Khoa Công nghệ Thông tin - Đại học Đại Nam
 - AIoTLab - Phòng thí nghiệm AI & IoT
 - Cộng đồng Odoo Vietnam
+- **Nhóm 8 (TTDN-15-05-N8)** - Đã xây dựng nền tảng ban đầu cho dự án này. Repository gốc: [github.com/linhdang2k03/TTDN-15-05-N8](https://github.com/linhdang2k03/TTDN-15-05-N8)
+
+**Ghi chú về nguồn gốc dự án:**  
+Dự án này được kế thừa và phát triển từ dự án của Nhóm 8 (TTDN-15-05-N8), với sự cải tiến đáng kể về chức năng, giao diện và hiệu suất. Chúng tôi xin trân trọng cảm ơn những đóng góp ban đầu từ nhóm tiền nhiệm.
 
 ---
 
