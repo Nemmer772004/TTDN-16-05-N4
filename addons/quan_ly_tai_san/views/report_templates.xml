@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report QR Code -->
+    <record id="action_report_qr_code_tai_san" model="ir.actions.report">
+        <field name="name">In mã QR Tài sản</field>
+        <field name="model">tai_san</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">quan_ly_tai_san.report_qr_code_tai_san_template</field>
+        <field name="report_file">quan_ly_tai_san.report_qr_code_tai_san_template</field>
+        <field name="binding_model_id" ref="model_tai_san"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'QR_Code_%s' % (object.ma_tai_san)</field>
+    </record>
+
+    <!-- Template QR Code -->
+    <template id="report_qr_code_tai_san_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center" style="margin-top: 50px;">
+                            <h2><t t-esc="o.name"/></h2>
+                            <h4>Mã tài sản: <t t-esc="o.ma_tai_san"/></h4>
+                            
+                            <!-- QR Code -->
+                            <div style="margin: 30px auto; width: 300px; height: 300px;">
+                                <t t-if="o.qr_code">
+                                    <img t-att-src="'data:image/png;base64,%s' % o.qr_code.decode('utf-8')"
+                                         style="width: 100%; height: 100%; object-fit: contain;"/>
+                                </t>
+                                <t t-else="">
+                                    <p class="text-danger">Không có mã QR</p>
+                                </t>
+                            </div>
+                            
+                            <!-- Barcode -->
+                            <div style="margin: 20px 0;">
+                                <t t-if="o.barcode">
+                                    <p>Barcode: <strong><t t-esc="o.barcode"/></strong></p>
+                                </t>
+                            </div>
+                            
+                            <!-- Asset Info -->
+                            <table class="table table-bordered" style="margin-top: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                                <tr>
+                                    <th style="width: 40%;">Loại tài sản:</th>
+                                    <td><t t-esc="dict(o._fields['loai_tai_san'].selection).get(o.loai_tai_san)"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Phòng ban:</th>
+                                    <td><t t-esc="o.phong_ban_id.name if o.phong_ban_id else ''"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Giá trị:</th>
+                                    <td><t t-esc="'{:,.0f}'.format(o.gia_tri)"/> VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <th>Ngày mua:</th>
+                                    <td><t t-esc="o.ngay_mua.strftime('%d/%m/%Y') if o.ngay_mua else ''"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Tình trạng:</th>
+                                    <td><t t-esc="dict(o._fields['tinh_trang'].selection).get(o.tinh_trang)"/></td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin-top: 50px; font-size: 12px; color: #888;">
+                                Quét mã QR để xem chi tiết tài sản trên hệ thống
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Chi tiết Khấu hao -->
+    <record id="action_report_khau_hao_tai_san" model="ir.actions.report">
+        <field name="name">Báo cáo Khấu hao Chi tiết</field>
+        <field name="model">tai_san</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">quan_ly_tai_san.report_khau_hao_tai_san_template</field>
+        <field name="report_file">quan_ly_tai_san.report_khau_hao_tai_san_template</field>
+        <field name="binding_model_id" ref="model_tai_san"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Khau_Hao_%s' % (object.ma_tai_san)</field>
+    </record>
+
+    <!-- Template Báo cáo Khấu hao -->
+    <template id="report_khau_hao_tai_san_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">BÁO CÁO KHẤU HAO TÀI SẢN</h2>
+                        
+                        <!-- Thông tin tài sản -->
+                        <div style="margin-top: 30px;">
+                            <h4>I. THÔNG TIN TÀI SẢN</h4>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 30%;">Mã tài sản:</th>
+                                    <td><t t-esc="o.ma_tai_san"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Tên tài sản:</th>
+                                    <td><t t-esc="o.name"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Loại:</th>
+                                    <td><t t-esc="dict(o._fields['loai_tai_san'].selection).get(o.loai_tai_san)"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Phòng ban:</th>
+                                    <td><t t-esc="o.phong_ban_id.name if o.phong_ban_id else ''"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <!-- Thông tin khấu hao -->
+                        <div style="margin-top: 30px;">
+                            <h4>II. THÔNG TIN KHẤU HAO</h4>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 30%;">Giá trị ban đầu:</th>
+                                    <td><t t-esc="'{:,.0f}'.format(o.gia_tri)"/> VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <th>Giá trị thanh lý dự kiến:</th>
+                                    <td><t t-esc="'{:,.0f}'.format(o.gia_tri_thanh_ly)"/> VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <th>Ngày bắt đầu sử dụng:</th>
+                                    <td><t t-esc="o.ngay_bat_dau_su_dung.strftime('%d/%m/%Y') if o.ngay_bat_dau_su_dung else ''"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Phương pháp khấu hao:</th>
+                                    <td><t t-esc="dict(o._fields['phuong_phap_khau_hao'].selection).get(o.phuong_phap_khau_hao)"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Thời gian khấu hao:</th>
+                                    <td><t t-esc="o.thoi_gian_khau_hao"/> năm</td>
+                                </tr>
+                                <tr>
+                                    <th>Tỷ lệ khấu hao năm:</th>
+                                    <td><t t-esc="'{:.2f}'.format(o.ty_le_khau_hao_nam)"/>%</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <!-- Tính toán khấu hao -->
+                        <div style="margin-top: 30px;">
+                            <h4>III. KẾT QUẢ TÍNH TOÁN</h4>
+                            <table class="table table-bordered">
+                                <tr class="bg-light">
+                                    <th style="width: 30%;">Khấu hao hàng năm:</th>
+                                    <td class="text-right">
+                                        <strong><t t-esc="'{:,.0f}'.format(o.gia_tri_khau_hao_hang_nam)"/> VNĐ</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Khấu hao hàng tháng:</th>
+                                    <td class="text-right"><t t-esc="'{:,.0f}'.format(o.gia_tri_khau_hao_hang_thang)"/> VNĐ</td>
+                                </tr>
+                                <tr class="bg-light">
+                                    <th>Tổng đã khấu hao:</th>
+                                    <td class="text-right">
+                                        <strong><t t-esc="'{:,.0f}'.format(o.tong_gia_tri_da_khau_hao)"/> VNĐ</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Giá trị còn lại:</th>
+                                    <td class="text-right">
+                                        <strong class="text-primary">
+                                            <t t-esc="'{:,.0f}'.format(o.gia_tri_con_lai)"/> VNĐ
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tỷ lệ hoàn thành:</th>
+                                    <td class="text-right">
+                                        <div class="progress" style="height: 25px;">
+                                            <div class="progress-bar" role="progressbar" 
+                                                 t-att-style="'width: %s%%' % o.ty_le_khau_hao_hoan_thanh">
+                                                <t t-esc="'{:.1f}'.format(o.ty_le_khau_hao_hoan_thanh)"/>%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <!-- Lịch sử khấu hao -->
+                        <t t-if="o.khau_hao_ids">
+                            <div style="margin-top: 30px; page-break-inside: avoid;">
+                                <h4>IV. LỊCH SỬ KHẤU HAO</h4>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="bg-light">
+                                            <th>Tháng/Năm</th>
+                                            <th>Năm thứ</th>
+                                            <th class="text-right">Khấu hao</th>
+                                            <th class="text-right">Lũy kế</th>
+                                            <th class="text-right">Còn lại</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.khau_hao_ids[:12]" t-as="kh">
+                                            <tr>
+                                                <td><t t-esc="kh.thang_nam.strftime('%m/%Y') if kh.thang_nam else ''"/></td>
+                                                <td><t t-esc="kh.nam_thu"/></td>
+                                                <td class="text-right"><t t-esc="'{:,.0f}'.format(kh.gia_tri_khau_hao)"/></td>
+                                                <td class="text-right"><t t-esc="'{:,.0f}'.format(kh.gia_tri_luy_ke)"/></td>
+                                                <td class="text-right"><t t-esc="'{:,.0f}'.format(kh.gia_tri_con_lai)"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <t t-if="len(o.khau_hao_ids) > 12">
+                                    <p class="text-muted"><em>Hiển thị 12 tháng gần nhất. Tổng số: <t t-esc="len(o.khau_hao_ids)"/> bản ghi.</em></p>
+                                </t>
+                            </div>
+                        </t>
+                        
+                        <!-- Ghi chú -->
+                        <div style="margin-top: 50px;">
+                            <p><em>Báo cáo được tạo tự động bởi hệ thống Quản lý Tài sản</em></p>
+                            <p><em>Ngày in: <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/></em></p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

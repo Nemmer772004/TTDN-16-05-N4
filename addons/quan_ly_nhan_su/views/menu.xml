@@ -56,5 +56,44 @@
             sequence="3"
             action="action_danh_sach_chung_chi_bang_cap"
         />
+
+        <!-- Chấm công -->
+        <menuitem name="Chấm công" 
+            id="menu_cham_cong" 
+            parent="menu_root" 
+            sequence="10"
+        />
+        <menuitem name="Chấm công" 
+            id="menu_cham_cong_list" 
+            parent="menu_cham_cong" 
+            sequence="1"
+            action="action_cham_cong"
+        />
+
+        <!-- Nghỉ phép -->
+        <menuitem name="Nghỉ phép" 
+            id="menu_nghi_phep" 
+            parent="menu_root" 
+            sequence="11"
+        />
+        <menuitem name="Đơn nghỉ phép" 
+            id="menu_don_nghi_phep" 
+            parent="menu_nghi_phep" 
+            sequence="1"
+            action="action_don_nghi_phep"
+        />
+        <menuitem name="Đơn của tôi" 
+            id="menu_don_nghi_phep_cua_toi" 
+            parent="menu_nghi_phep" 
+            sequence="2"
+            action="action_don_nghi_phep_cua_toi"
+        />
+        <menuitem name="Chờ phê duyệt" 
+            id="menu_don_nghi_phep_cho_duyet" 
+            parent="menu_nghi_phep" 
+            sequence="3"
+            action="action_don_nghi_phep_cho_duyet"
+        />
     </data>
 </odoo>
+

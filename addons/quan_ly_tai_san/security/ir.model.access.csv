@@ -11,3 +11,7 @@ access_kiem_ke_user,access.kiem_ke.user,model_kiem_ke_tai_san,base.group_user,1,
 access_kiem_ke_manager,access.kiem_ke.manager,model_kiem_ke_tai_san,base.group_system,1,1,1,1
 access_chi_tiet_kiem_ke_user,access.chi_tiet_kiem_ke.user,model_chi_tiet_kiem_ke,base.group_user,1,1,0,0
 access_chi_tiet_kiem_ke_manager,access.chi_tiet_kiem_ke.manager,model_chi_tiet_kiem_ke,base.group_system,1,1,1,1
+access_khau_hao_user,access.khau_hao.user,model_khau_hao_tai_san,base.group_user,1,0,0,0
+access_khau_hao_manager,access.khau_hao.manager,model_khau_hao_tai_san,base.group_system,1,1,1,1
+access_dashboard_user,access.dashboard.user,model_dashboard_tai_san,base.group_user,1,0,0,0
+access_dashboard_manager,access.dashboard.manager,model_dashboard_tai_san,base.group_system,1,0,0,0

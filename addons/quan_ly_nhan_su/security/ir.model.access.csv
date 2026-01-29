@@ -7,3 +7,6 @@ access_lich_su_cong_tac,lich_su_cong_tac.lich_su_cong_tac,model_lich_su_cong_tac
 access_chung_chi_bang_cap,chung_chi_bang_cap.chung_chi_bang_cap,model_chung_chi_bang_cap,base.group_user,1,1,1,1
 access_danh_sach_chung_chi_bang_cap,danh_sach_chung_chi_bang_cap.danh_sach_chung_chi_bang_cap,model_danh_sach_chung_chi_bang_cap,base.group_user,1,1,1,1
 access_hr_role,hr_role.hr_role,model_hr_role,base.group_user,1,1,1,1
+access_cham_cong,cham_cong.cham_cong,model_cham_cong,base.group_user,1,1,1,1
+access_don_nghi_phep,don_nghi_phep.don_nghi_phep,model_don_nghi_phep,base.group_user,1,1,1,1
+

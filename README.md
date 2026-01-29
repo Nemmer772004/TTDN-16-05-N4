@@ -559,8 +559,7 @@ xmlrpc_port = 8070
 
 **Nhóm 4 - TTDN-16-05-N4**
 
-**Giảng viên hướng dẫn:** - Lê Tuấn Anh
-- Nguyễn Thế Huy Hoàng
+**Giảng viên hướng dẫn:** - Lê Tuấn Anh, Nguyễn Thế Huy Hoàng
 
 **Thành viên:**
 - Nguyễn Phương Nam - [Trưởng nhóm]

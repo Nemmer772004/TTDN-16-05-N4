@@ -10,7 +10,7 @@ class ChiTietKiemKe(models.Model):
     kiem_ke_id = fields.Many2one('kiem_ke_tai_san', string='Phiếu kiểm kê', required=True, ondelete='cascade')
     tai_san_id = fields.Many2one('tai_san', string='Tài sản', required=True)
     ma_tai_san = fields.Char(related='tai_san_id.ma_tai_san', string='Mã tài sản', readonly=True)
-    ten_tai_san = fields.Char(related='tai_san_id.ten_tai_san', string='Tên tài sản', readonly=True)
+    ten_tai_san = fields.Char(related='tai_san_id.name', string='Tên tài sản', readonly=True)
     
     # Thông tin sổ sách
     gia_tri_so_sach = fields.Float(string='Giá trị sổ sách', readonly=True)

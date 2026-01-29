@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    
+    <t t-name="quan_ly_tai_san.DashboardTaiSanMain">
+        <div class="o_dashboard_tai_san container-fluid o_web_dashboard">
+            <!-- Header -->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">
+                            <i class="fa fa-dashboard"/> Dashboard Quản lý Tài sản
+                        </h2>
+                        <button class="btn btn-primary" onclick="$(this).closest('.o_dashboard_tai_san').trigger('refresh')">
+                            <i class="fa fa-refresh"/> Làm mới
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="row">
+                <!-- Tổng tài sản -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Tổng Tài sản
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="data.tong_tai_san || 0"/>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-cubes fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tổng giá trị -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Tổng Giá trị
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="(data.tong_gia_tri || 0).toLocaleString('vi-VN')"/> đ
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-money fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Giá trị còn lại -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Giá trị còn lại
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="(data.tong_gia_tri_con_lai || 0).toLocaleString('vi-VN')"/> đ
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-line-chart fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đã khấu hao -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Đã Khấu hao
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="(data.ty_le_khau_hao_trung_binh || 0).toFixed(1)"/>%
+                                    </div>
+                                    <div class="small text-muted">
+                                        <t t-esc="(data.tong_da_khau_hao || 0).toLocaleString('vi-VN')"/> đ
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-percent fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-primary">Đang sử dụng</h6>
+                            <h3><t t-esc="data.dang_su_dung || 0"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context='{"search_default_dang_su_dung": 1}'
+                               class="o_dashboard_action">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-info">Trong kho</h6>
+                            <h3><t t-esc="data.trong_kho || 0"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context='{"search_default_trong_kho": 1}'
+                               class="o_dashboard_action">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-warning">Cần bảo trì</h6>
+                            <h3><t t-esc="data.can_bao_tri || 0"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san_can_bao_tri"
+                               data-context='{}'
+                               class="o_dashboard_action">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-danger">Tài sản hỏng</h6>
+                            <h3><t t-esc="data.tai_san_hong || 0"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context='{"search_default_hong": 1}'
+                               class="o_dashboard_action">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h5 class="font-weight-bold text-success">Sắp hết khấu hao</h5>
+                            <h2 class="text-success"><t t-esc="data.sap_het_khau_hao || 0"/></h2>
+                            <a href="#" class="btn btn-success btn-sm o_dashboard_action"
+                               data-action="quan_ly_tai_san.action_tai_san_sap_het_khau_hao"
+                               data-context='{}'
+                               class="o_dashboard_action">
+                                Xem danh sách
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h5 class="font-weight-bold text-info">Tổng chi phí bảo trì</h5>
+                            <h2 class="text-info">
+                                <t t-esc="(data.tong_chi_phi_bao_tri || 0).toLocaleString('vi-VN')"/> đ
+                            </h2>
+                            <a href="#" class="btn btn-info btn-sm o_dashboard_action"
+                               data-action="quan_ly_tai_san.action_bao_tri_tai_san"
+                               data-context='{}'
+                               class="o_dashboard_action">
+                                Xem lịch sử
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h5 class="font-weight-bold text-primary">Đã thanh lý</h5>
+                            <h2 class="text-primary"><t t-esc="data.da_thanh_ly || 0"/></h2>
+                            <a href="#" class="btn btn-primary btn-sm o_dashboard_action"
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context='{"search_default_da_thanh_ly": 1}'
+                               class="o_dashboard_action">
+                                Xem danh sách
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="row">
+                <!-- Tổng tài sản -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Tổng Tài sản
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="widget.data.tong_tai_san"/>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-cubes fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tổng giá trị -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Tổng Giá trị
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="widget.data.tong_gia_tri.toLocaleString('vi-VN')"/> đ
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-money fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Giá trị còn lại -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Giá trị còn lại
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="widget.data.tong_gia_tri_con_lai.toLocaleString('vi-VN')"/> đ
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" role="progressbar" 
+                                                 t-att-style="'width: ' + (widget.data.tong_gia_tri_con_lai / widget.data.tong_gia_tri * 100) + '%'"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-line-chart fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đã khấu hao -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Đã Khấu hao
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <t t-esc="widget.data.ty_le_khau_hao_trung_binh.toFixed(1)"/>%
+                                    </div>
+                                    <div class="small text-muted">
+                                        <t t-esc="widget.data.tong_da_khau_hao.toLocaleString('vi-VN')"/> đ
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-percent fa-2x text-gray-300"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row">
+                <!-- Depreciation Chart -->
+                <div class="col-lg-8 mb-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Khấu hao 12 tháng gần nhất</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area" style="height: 300px;">
+                                <canvas id="khauHaoChart"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Asset by Category Pie -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Tài sản theo Loại</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-pie" style="height: 300px;">
+                                <canvas id="loaiTaiSanChart"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Row -->
+            <div class="row">
+                <!-- Status cards -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-primary">Đang sử dụng</h6>
+                            <h3><t t-esc="widget.data.dang_su_dung"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context="{'search_default_dang_su_dung': 1}">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-info">Trong kho</h6>
+                            <h3><t t-esc="widget.data.trong_kho"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context="{'search_default_trong_kho': 1}">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-warning">Cần bảo trì</h6>
+                            <h3><t t-esc="widget.data.can_bao_tri"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san_can_bao_tri">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold text-danger">Tài sản hỏng</h6>
+                            <h3><t t-esc="widget.data.tai_san_hong"/></h3>
+                            <a href="#" class="o_dashboard_action stretched-link" 
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context="{'search_default_hong': 1}">
+                                Xem chi tiết →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts Row -->
+            <div class="row">
+                <!-- Maintenance Alerts -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-warning">
+                                <i class="fa fa-exclamation-triangle"/> Cảnh báo Bảo trì
+                                <span class="badge badge-warning ml-2">
+                                    <t t-esc="widget.data.canh_bao_bao_tri_count"/>
+                                </span>
+                            </h6>
+                        </div>
+                        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                            <t t-if="widget.data.canh_bao_bao_tri.length">
+                                <t t-foreach="widget.data.canh_bao_bao_tri" t-as="canh_bao">
+                                    <div class="alert" t-att-class="canh_bao.muc_do === 'cao' ? 'alert-danger' : 'alert-warning'" role="alert">
+                                        <strong><t t-esc="canh_bao.tai_san"/></strong> 
+                                        (<t t-esc="canh_bao.ma_tai_san"/>)
+                                        <br/>
+                                        <small>
+                                            Bảo trì: <t t-esc="canh_bao.ngay_bao_tri"/> 
+                                            (còn <t t-esc="canh_bao.ngay_con_lai"/> ngày)
+                                        </small>
+                                    </div>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <div class="text-center text-muted py-4">
+                                    <i class="fa fa-check-circle fa-3x mb-2"/>
+                                    <p>Không có cảnh báo bảo trì</p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Assets -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Top 10 Tài sản Giá trị cao</h6>
+                        </div>
+                        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Tài sản</th>
+                                            <th class="text-right">Giá trị</th>
+                                            <th class="text-right">Còn lại</th>
+                                            <th class="text-right">Khấu hao</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="widget.data.top_tai_san" t-as="ts">
+                                            <tr>
+                                                <td>
+                                                    <strong><t t-esc="ts.name"/></strong><br/>
+                                                    <small class="text-muted"><t t-esc="ts.ma_tai_san"/></small>
+                                                </td>
+                                                <td class="text-right">
+                                                    <t t-esc="ts.gia_tri.toLocaleString('vi-VN')"/> đ
+                                                </td>
+                                                <td class="text-right">
+                                                    <t t-esc="ts.gia_tri_con_lai.toLocaleString('vi-VN')"/> đ
+                                                </td>
+                                                <td class="text-right">
+                                                    <span class="badge badge-info">
+                                                        <t t-esc="ts.ty_le_khau_hao.toFixed(1)"/>%
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h5 class="font-weight-bold text-success">Sắp hết khấu hao</h5>
+                            <h2 class="text-success"><t t-esc="widget.data.sap_het_khau_hao"/></h2>
+                            <a href="#" class="btn btn-success btn-sm o_dashboard_action"
+                               data-action="quan_ly_tai_san.action_tai_san_sap_het_khau_hao">
+                                Xem danh sách
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h5 class="font-weight-bold text-info">Tổng chi phí bảo trì</h5>
+                            <h2 class="text-info">
+                                <t t-esc="widget.data.tong_chi_phi_bao_tri.toLocaleString('vi-VN')"/> đ
+                            </h2>
+                            <a href="#" class="btn btn-info btn-sm o_dashboard_action"
+                               data-action="quan_ly_tai_san.action_bao_tri_tai_san">
+                                Xem lịch sử
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h5 class="font-weight-bold text-primary">Đã thanh lý</h5>
+                            <h2 class="text-primary"><t t-esc="widget.data.da_thanh_ly"/></h2>
+                            <a href="#" class="btn btn-primary btn-sm o_dashboard_action"
+                               data-action="quan_ly_tai_san.action_tai_san"
+                               data-context="{'search_default_da_thanh_ly': 1}">
+                                Xem danh sách
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

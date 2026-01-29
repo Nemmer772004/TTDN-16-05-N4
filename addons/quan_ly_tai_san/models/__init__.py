@@ -5,7 +5,6 @@ from . import bao_tri_tai_san
 from . import chuyen_giao_tai_san
 from . import kiem_ke_tai_san
 from . import chi_tiet_kiem_ke
-from . import bao_tri_tai_san
-from . import chuyen_giao_tai_san
-from . import kiem_ke_tai_san
+from . import khau_hao_tai_san
+from . import dashboard_tai_san
 from . import chi_tiet_kiem_ke

@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "nhan_su",
+    'name': "Quản lý Nhân sự",
 
     'summary': """
-        Quản lý nhân sự toàn diện với vai trò nghiệp vụ, phân quyền, 
-        quản lý tài sản, mượn trả thiết bị, vi phạm và nhật ký hoạt động""",
+        Quản lý nhân sự toàn diện với chấm công, nghỉ phép, 
+        vai trò nghiệp vụ, phân quyền và quản lý tài sản""",
 
     'description': """
         Module quản lý nhân sự mở rộng bao gồm:
+        - Quản lý thông tin nhân viên, phòng ban, chức vụ
+        - ⭐ Chấm công tự động với tính toán giờ làm, tăng ca
+        - ⭐ Quản lý nghỉ phép với workflow phê duyệt
         - Quản lý vai trò nghiệp vụ (HR Role)
         - Trạng thái làm việc và phân quyền
         - Quản lý trưởng đơn vị và phê duyệt
@@ -17,17 +20,15 @@
         - Mượn trả thiết bị với workflow
         - Nhật ký sử dụng tài nguyên
         - Quản lý vi phạm nhân sự
-        - Báo cáo và thống kê
+        - Báo cáo và thống kê toàn diện
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Nhóm 4 - TTDN-16-05-N4",
+    'website': "https://github.com/Nemmer772004/TTDN-16-05-N4",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.2',
+    'category': 'Human Resources',
+    'version': '1.0',
+    'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],
@@ -44,10 +45,16 @@
         'views/chung_chi_bang_cap.xml',
         'views/danh_sach_chung_chi_bang_cap.xml',
         'views/hr_role.xml',
+        'views/cham_cong.xml',
+        'views/don_nghi_phep.xml',
         'views/menu.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
 }
+
